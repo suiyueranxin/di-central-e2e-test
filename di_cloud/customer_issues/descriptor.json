@@ -1,0 +1,20 @@
+{
+    "cluster": "CET_DI",
+    "connections": [{
+        "name": "CIT_HANA",
+        "type": "HANA",
+        "value": "CET_HANA_OC"
+    },{
+        "name": "CIT_FILE",
+        "type": "ADL_V2",
+        "value": "CET_FILE"
+    }],
+    "graphData": {
+        "namePrefix": "CET-Customer-Issues",
+        "graphs": []
+    },
+    "connData": [{
+        "connection": "CIT_HANA",
+        "targetSchema": "CET_TEST"
+    }]
+}

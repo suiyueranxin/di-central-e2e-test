@@ -1,0 +1,323 @@
+{
+    "inlineGraph": {
+	"properties": {},
+	"description": "squall_test_dataflow",
+	"processes": {
+		"source1": {
+			"component": "com.sap.storage.consumer",
+			"metadata": {
+				"label": "Customers.csv",
+				"x": -250,
+				"y": 173,
+				"height": 80,
+				"width": 120,
+				"config": {
+					"service": "adl_v2",
+					"isSchemaModified": false,
+					"adl_v2Connection": {
+						"configurationType": "Configuration Manager",
+						"connectionID": "CIT_ADLV2::HTTP::SharedKey"
+					},
+					"adl_v2AdaptedDataset": {
+						"remoteObjectReference": {
+							"connection": {
+								"id": "CIT_ADLV2::HTTP::SharedKey",
+								"type": "ADL_V2"
+							},
+							"name": "Customers.csv",
+							"remoteObjectType": "FILE.CSV",
+							"qualifiedName": "/CET_BR_TEST/For_ME_Test/Customers.csv",
+							"nativeQualifiedName": "/CET_BR_TEST/For_ME_Test/Customers.csv",
+							"owner": "$superuser",
+							"size": 7207,
+							"version": {
+								"dataLastModified": 1664192870000,
+								"metadataLastModified": 1664192870000,
+								"metadataVersionNumber": 1664192870000
+							}
+						},
+						"dataAccessConfiguration": {
+							"rowDelimiter": "\r\n",
+							"charset": "ISO-8859-1",
+							"textDelimiter": "\"",
+							"header": true,
+							"escapeCharacter": "\"",
+							"colDelimiter": ";"
+						},
+						"schema": {
+							"genericType": "TABLE",
+							"tableBasedRepresentation": {
+								"attributes": [
+									{
+										"name": "CUSTOMER",
+										"templateType": "int32",
+										"datatype": "INTEGER",
+										"length": 4
+									},
+									{
+										"name": "FIRST_NAME",
+										"templateType": "string",
+										"datatype": "STRING",
+										"length": 11
+									},
+									{
+										"name": "LAST_NAME",
+										"templateType": "string",
+										"datatype": "STRING",
+										"length": 12
+									},
+									{
+										"name": "COUNTRY",
+										"templateType": "string",
+										"datatype": "STRING",
+										"length": 2
+									}
+								]
+							}
+						},
+						"capabilityProperties": [
+							{
+								"name": "isProfileable",
+								"value": "true"
+							}
+						],
+						"connectionId": "CIT_ADLV2",
+						"disConnectionId": "CIT_ADLV2",
+						"typeId": "ADL"
+					},
+					"fetchSize": 1000,
+					"forceFetchSize": false,
+					"failOnStringTruncation": true
+				},
+				"outports": [
+					{
+						"name": "outTable",
+						"type": "table",
+						"vtype-ID": "$INLINE.source1_outTable"
+					}
+				]
+			}
+		},
+		"producer1": {
+			"component": "com.sap.database.table.producer",
+			"metadata": {
+				"label": "Table_squall",
+				"x": 250,
+				"y": 178,
+				"height": 80,
+				"width": 120,
+				"config": {
+					"hanaConnection": {
+						"configurationType": "Configuration Manager",
+						"connectionID": "CIT_HANA_Cloud::SQL::NamedUser"
+					},
+					"mode": "append",
+					"qualifiedName": "Table_squall",
+					"remoteObjectType": "TABLE",
+					"service": "HANA",
+					"forceBatchSize": false,
+					"batchSize": 1000,
+					"attributeMappings": [
+						{
+							"expression": "\"CUSTOMER\"",
+							"target": "CUSTOMER"
+						},
+						{
+							"expression": "\"FIRST_NAME\"",
+							"target": "FIRST_NAME"
+						},
+						{
+							"expression": "\"LAST_NAME\"",
+							"target": "LAST_NAME"
+						},
+						{
+							"expression": "\"COUNTRY\"",
+							"target": "COUNTRY"
+						}
+					],
+					"hanaAdaptedDataset": {
+						"remoteObjectReference": {
+							"connection": {
+								"id": "CIT_HANA_Cloud::SQL::NamedUser",
+								"type": "HANA_DB"
+							},
+							"name": "TABLE_SQUALL",
+							"remoteObjectType": "TABLE",
+							"qualifiedName": "/CET_DWC_TEST/TABLE_SQUALL",
+							"nativeQualifiedName": "\"CET_DWC_TEST\".\"TABLE_SQUALL\"",
+							"owner": "CET_DWC_TEST"
+						},
+						"schema": {
+							"genericType": "TABLE",
+							"tableBasedRepresentation": {
+								"attributes": [
+									{
+										"name": "CUSTOMER",
+										"templateType": "int32",
+										"datatype": "INTEGER",
+										"length": 4,
+										"nativeDatatype": "INTEGER",
+										"nativeLength": 10
+									},
+									{
+										"name": "FIRST_NAME",
+										"templateType": "string",
+										"datatype": "STRING",
+										"length": 11,
+										"nativeDatatype": "NVARCHAR",
+										"nativeLength": 11
+									},
+									{
+										"name": "LAST_NAME",
+										"templateType": "string",
+										"datatype": "STRING",
+										"length": 12,
+										"nativeDatatype": "NVARCHAR",
+										"nativeLength": 12
+									},
+									{
+										"name": "COUNTRY",
+										"templateType": "string",
+										"datatype": "STRING",
+										"length": 2,
+										"nativeDatatype": "NVARCHAR",
+										"nativeLength": 2
+									}
+								]
+							}
+						},
+						"capabilityProperties": [
+							{
+								"name": "isProfileable",
+								"value": "true"
+							},
+							{
+								"name": "isDeltaEnabled",
+								"value": "true"
+							}
+						]
+					}
+				},
+				"inports": [
+					{
+						"name": "inTable",
+						"type": "table",
+						"vtype-ID": "$INLINE.source1_outTable"
+					}
+				]
+			}
+		},
+		"GraphTerminator1": {
+			"component": "com.sap.util.graphTerminator",
+			"metadata": {
+				"label": "GraphTerminator1",
+				"x": 495,
+				"y": 218,
+				"height": 80,
+				"width": 120,
+				"config": {},
+				"additionalinports": [
+					{
+						"name": "input1",
+						"type": "message.table"
+					}
+				]
+			}
+		}
+	},
+	"groups": [],
+	"connections": [
+		{
+			"metadata": {
+				"points": "374,218 432,218 432,249 490,249"
+			},
+			"src": {
+				"port": "outMessage",
+				"process": "producer1"
+			},
+			"tgt": {
+				"port": "stop",
+				"process": "GraphTerminator1"
+			}
+		},
+		{
+			"metadata": {
+				"points": "-126,213 59.5,213 59.5,218 245,218"
+			},
+			"src": {
+				"port": "outTable",
+				"process": "source1"
+			},
+			"tgt": {
+				"port": "inTable",
+				"process": "producer1"
+			}
+		}
+	],
+	"inports": {},
+	"outports": {},
+	"metadata": {
+		"dwc-restartOnFail": false
+	},
+	"vTypes": {
+		"scalar": {
+			"string_11": {
+				"name": "string_11",
+				"description": "String(11)",
+				"vflow.type": "scalar",
+				"template": "string",
+				"value.length": 11
+			},
+			"string_12": {
+				"name": "string_12",
+				"description": "String(12)",
+				"vflow.type": "scalar",
+				"template": "string",
+				"value.length": 12
+			},
+			"string_2": {
+				"name": "string_2",
+				"description": "String(2)",
+				"vflow.type": "scalar",
+				"template": "string",
+				"value.length": 2
+			}
+		},
+		"structure": {},
+		"table": {
+			"source1_outTable": {
+				"name": "source1_outTable",
+				"vflow.type": "table",
+				"rows": {
+					"components": [
+						{
+							"CUSTOMER": {
+								"vflow.type": "scalar",
+								"vtype-ID": "com.sap.core.int32"
+							}
+						},
+						{
+							"FIRST_NAME": {
+								"vflow.type": "scalar",
+								"vtype-ID": "$INLINE.string_11"
+							}
+						},
+						{
+							"LAST_NAME": {
+								"vflow.type": "scalar",
+								"vtype-ID": "$INLINE.string_12"
+							}
+						},
+						{
+							"COUNTRY": {
+								"vflow.type": "scalar",
+								"vtype-ID": "$INLINE.string_2"
+							}
+						}
+					]
+				}
+			}
+		}
+	}
+}
+}

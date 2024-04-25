@@ -1,0 +1,6 @@
+{
+    "name":"IM_GCS",
+    "Project ID":"sap-p-and-i-big-data-vora",
+    "key": "CET_GCS.secrets.json",
+    "bucket":"cet-root"
+}

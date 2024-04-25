@@ -1,0 +1,6 @@
+{
+    "name":"IM_S3",
+    "Endpoint":"s3.amazonaws.com",
+    "Protocol":"HTTPS",
+    "bucket":"cet-root"
+}

@@ -1,0 +1,54 @@
+@Library('cet-shared-library') _
+
+pipeline {
+  agent {
+    kubernetes {
+      yamlFile 'di_cloud/jenkins/yaml/cet_pod.yaml'
+    }
+  }
+  stages {
+
+    stage('Prepare data to check big data') {
+      steps {
+        dir("di_cloud/utils/cluster_helper"){
+          container('central-e2e-testing'){ 
+            sh "bash $WORKSPACE/di_cloud/utils/cluster_helper/prepare_big_data.sh"
+          }
+        }
+      }
+    }
+
+    stage('Trigger CET backup big data scenario and validate the result') {
+      steps {
+        dir("di_cloud"){
+          container('central-e2e-testing'){ 
+            catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+              script{
+                injectCredentials{
+                  sh "poetry install"
+                  sh "poetry run python3 -m xmlrunner discover -s br_scenarios/default -o testresults -p test_br_big_data.py -k _pre_backup_"
+                }
+              }
+            }
+            junit "testresults/*.xml"
+          }
+        }
+      }
+    }
+  }
+  post {
+    always { 
+       sendNotifications(currentBuild.currentResult, "Test result is $currentBuild.currentResult")
+    }
+  }
+
+  parameters {
+    string(name: 'SHOOT_NAME', defaultValue: 'dh-64xiwb1o', description: 'Cluster ID in control center, used to get kubeconfig')
+    string(name: 'PLATFORM', defaultValue: 'aws', description: 'Cluster platform, used to get kubeconfig')
+    string(name: 'cluster', defaultValue: 'CET_BR_DEFAULT', description: 'Pre-defined cluster to run CET scenarios')
+    string(name: 'url', defaultValue: '', description: 'URL of Cluster to run CET scenarios, use its value instead of pre-defined cluster config')
+    string(name: 'tenant', defaultValue: 'default', description: 'Tenant of Cluster to run CET scenarios, use its value instead of pre-defined tenant')
+    string(name: 'recipients', defaultValue: 'amy.li01@sap.com', description: '')
+    string(name: 'CET_BR_DEFAULT', defaultValue: '{"baseurl": "https://vsystem.ingress.dh-64xiwb1o.dh-testing.shoot.canary.k8s-hana.ondemand.com", "tenant": "default", "user": "tester", "password": "Test123!", "admin_user": "admin", "admin_password": "Test1234!", "system_password": "lQi3wv?NkYLfb_H30cl1SfamsF1Mqy"}', description: '')
+  }
+}

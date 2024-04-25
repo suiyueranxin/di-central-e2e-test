@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+
+    <title>Backup & Restore Report</title>
+    <script src="./libs/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <h2>
+        Backup and Restore Summary
+    </h2>
+    <br/>
+    <br/>
+    <div id="summary">
+        <div>
+            <label>
+                <b>Backup Cluster Name: </b>
+            </label>
+            <label id="sBackupClusterName"></label>
+        </div>
+        <div>
+            <label>
+                <b>Backup Shoot Name: </b>
+            </label>
+            <label id="sBackupShootName"></label>
+        </div>
+        <div>
+            <label>
+                <b>Restored Cluster URL: </b>
+            </label>
+            <label id="sRestoredClusterURL"></label>
+        </div>
+        <div>
+            <label>
+                <b>Credentials: </b>
+            </label>
+        </div>
+        <div>
+            <label>
+                <b>Tenant: </b>
+            </label>
+            <label id="sTenant"></label>
+        </div>
+        <div>
+            <label>
+                <b>Username: </b>
+            </label>
+            <label id="sUsername"></label>
+        </div>
+        <div>
+            <label>
+                <b>Password: </b>
+            </label>
+            <label id="sPassword"></label>
+        </div>
+    </div>
+    <br/>
+    <br/>
+    <div>
+        <label>
+            <b>Connection Status</b>
+        </label>
+        <div id="connections"></div>
+    </div>
+    <br/>
+    <br/>
+    <div>
+        <label>
+            <b>Dataflow Status</b>
+        </label>
+        <div id="dataflows"></div>
+    </div>
+</body>
+<script>
+    window.onload = function () {
+        // $.getJSON('../result/res-res-di-dmo-aws-br-validation-xpd8v_restore_result.json', function (data) {
+        //     console.log('data', data);
+        // });
+
+        $.ajax({
+            dataType: "json",
+            url: '../result/res-res-di-dmo-aws-br-validation-xpd8v_restore_result.json',
+            data: "",
+            success: function (data) {
+                console.log(data)
+                $("#sBackupClusterName").text(data.clusterName);
+                $("#sBackupShootName").text(data.shootName);
+                $("#sRestoredClusterURL").text(data.clusterName);
+                $("#sTenant").text(data.tenant);
+                $("#sUsername").text(data.username);
+                $("#sPassword").text(data.password);
+                for (var connections in data.connectionTest) {
+                    let sTable = `<table><tbody><tr><td>${data.connectionTest[connections].connectionName}</td><td>Is exist after restoration: </td><td>${data.connectionTest[connections].isExistAfterRestore}</td></tr></tbody></table>`;
+                    $("#connections").append($(sTable))
+                }
+                for (var dataflows in data.dataflowTest) {
+                    let sTable = `<table><tbody><tr><td>${data.dataflowTest[dataflows].dataflowName}</td>
+                    <td>Backup status: </td><td>${data.dataflowTest[dataflows].status}</td>
+                    <td>Restore status: </td><td>${data.dataflowTest[dataflows].isSameStatusAfterRestore}</td>
+                    </tr></tbody></table>`;
+                    $("#dataflows").append($(sTable))
+                }
+
+            }
+        });
+    }
+</script>
+
+</html>

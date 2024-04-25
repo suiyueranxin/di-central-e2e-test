@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "DI-Embedded-E2E-Test"
+version = "0.1.2"
+description = "DI Embedded E2E Testing scenarios"
+authors = ["Tammy Yang <tammy.yang@sap.com>, Amy Li <amy.li@sap.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10.5"
+di-embedded-e2e = "^0.5.0"
+unittest-xml-reporting = "3.2.0"
+
+[[tool.poetry.source]]
+name = "artifactory"
+url = "https://int.repositories.cloud.sap/artifactory/api/pypi/di-embedded-e2e/simple"
+priority = "supplemental"
+
+[[tool.poetry.source]]
+name = "di-qa-e2e-validation"
+url = "https://int.repositories.cloud.sap/artifactory/api/pypi/di-qa-python-public/simple"
+priority = "supplemental"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

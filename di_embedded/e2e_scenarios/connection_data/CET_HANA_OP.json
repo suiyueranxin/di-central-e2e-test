@@ -1,0 +1,5 @@
+{
+    "name": "HANA_ON_PREM",
+    "address": "sp5.ha-ce-ind.only.sap",
+    "port": 30571
+}

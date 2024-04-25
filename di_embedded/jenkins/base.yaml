@@ -1,0 +1,36 @@
+global_labels:
+  skip_dmi: true
+  skip_dockerimageregistry_integrity_tests: true
+  skip_haas: true
+  skip_hdl: true
+  skip_hxtp: true
+  skip_lane_aws_ci: true
+  skip_lane_aws_e2e_ci: true
+  skip_lane_azure_ci: true
+  skip_lane_azure_e2e_ci: true
+  skip_lane_btp_aws_ci: true
+  skip_lane_cc_ci: true
+  skip_lane_delphi_azure_ci: true
+  skip_lane_delphi_ci: true
+  skip_lane_gcp_ci: true
+  skip_lane_gcp_e2e_ci: true
+  skip_lane_gcp_fs_ci: true
+  skip_lane_gcp_fs_e2e_ci: true
+  skip_lane_monitor_ci: true
+  skip_lane_scaleout_aws_ci: true
+  skip_lane_vault: true
+  skip_lane_vault_aws_ci: true
+  skip_lane_vault_az_ci: true
+  skip_lane_vault_gcp_ci: true
+  skip_observability_tests: true
+  skip_opa_health_tests: true
+  skip_shoot_tests: true
+  skip_di_baseline_tests: true
+  #skip_lane_di_az_ci: true
+
+
+lane_labels:
+  LANE_AWS_CI:
+    skip_haas: true
+  LANE_AWS_E2E_CI:
+    skip_haas: true

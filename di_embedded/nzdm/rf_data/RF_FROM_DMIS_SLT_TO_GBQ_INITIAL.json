@@ -1,0 +1,21 @@
+{
+    "source": {
+        "name": "CIT_DMIS_2018_SLT",
+        "container": "SLT/01M",
+        "table": "LTE2E_WN_LX"
+    }
+    ,
+    "target": {
+        "name": "IM_GBQ",
+        "container": "CET_TEST",
+        "table": "NZDM_RF_T_FROM_DMIS_SLT_LTE2E_WN_LX_INITIAL"
+    },
+    "task": {
+        "name": "RF_FROM_DMIS_SLT_TO_GBQ_INITIAL",
+        "is_active": true,
+        "priority":50,
+        "schedule_type":"IMMEDIATE",
+        "load_type": "INITIAL",
+        "truncate": false
+    }
+}

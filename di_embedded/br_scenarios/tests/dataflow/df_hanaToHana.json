@@ -1,0 +1,639 @@
+{
+    "inlineGraph": {
+	"properties": {},
+	"description": "Squall_HANAonCloud_to_HANAonCloud",
+	"processes": {
+		"source1": {
+			"component": "com.sap.database.table.consumer",
+			"metadata": {
+				"label": "S_ALL_TYPES_TB",
+				"x": -485,
+				"y": -36,
+				"height": 80,
+				"width": 120,
+				"config": {
+					"service": "HANA",
+					"isSchemaModified": false,
+					"hanaConnection": {
+						"configurationType": "Configuration Manager",
+						"connectionID": "CIT_HANA_Cloud::SQL::NamedUser"
+					},
+					"hanaAdaptedDataset": {
+						"remoteObjectReference": {
+							"connection": {
+								"id": "CIT_HANA_Cloud::SQL::NamedUser",
+								"type": "HANA_DB"
+							},
+							"name": "S_ALL_TYPES_TB",
+							"remoteObjectType": "TABLE",
+							"qualifiedName": "/CET_DWC_TEST/S_ALL_TYPES_TB",
+							"nativeQualifiedName": "\"CET_DWC_TEST\".\"S_ALL_TYPES_TB\"",
+							"owner": "CET_DWC_TEST"
+						},
+						"schema": {
+							"genericType": "TABLE",
+							"tableBasedRepresentation": {
+								"attributes": [
+									{
+										"name": "INT_C1",
+										"templateType": "int32",
+										"datatype": "INTEGER",
+										"length": 4,
+										"nativeDatatype": "INTEGER",
+										"nativeLength": 10,
+										"key": true
+									},
+									{
+										"name": "BIGINT_C2",
+										"templateType": "int64",
+										"datatype": "INTEGER",
+										"length": 8,
+										"nativeDatatype": "BIGINT",
+										"nativeLength": 19
+									},
+									{
+										"name": "SMALLINT_C3",
+										"templateType": "int16",
+										"datatype": "INTEGER",
+										"length": 2,
+										"nativeDatatype": "SMALLINT",
+										"nativeLength": 5
+									},
+									{
+										"name": "TINYINT_C4",
+										"templateType": "uint8",
+										"datatype": "INTEGER",
+										"length": 1,
+										"nativeDatatype": "TINYINT",
+										"nativeLength": 3
+									},
+									{
+										"name": "FLOAT_C5",
+										"templateType": "float64",
+										"datatype": "FLOATING",
+										"length": 8,
+										"nativeDatatype": "DOUBLE",
+										"nativeLength": 15
+									},
+									{
+										"name": "REAL_C6",
+										"templateType": "float32",
+										"datatype": "FLOATING",
+										"length": 4,
+										"nativeDatatype": "REAL",
+										"nativeLength": 7
+									},
+									{
+										"name": "DOUBLE_C7",
+										"templateType": "float64",
+										"datatype": "FLOATING",
+										"length": 8,
+										"nativeDatatype": "DOUBLE",
+										"nativeLength": 15
+									},
+									{
+										"name": "DECIMAL_C8",
+										"templateType": "decfloat34",
+										"datatype": "DECIMAL",
+										"precision": 0,
+										"scale": 0,
+										"nativeDatatype": "DECIMAL"
+									},
+									{
+										"name": "DECIMAL_C9",
+										"templateType": "decimal",
+										"datatype": "DECIMAL",
+										"precision": 38,
+										"scale": 10,
+										"nativeDatatype": "DECIMAL"
+									},
+									{
+										"name": "DATE_C10",
+										"templateType": "date",
+										"datatype": "DATE",
+										"nativeDatatype": "DATE",
+										"nativeLength": 10
+									},
+									{
+										"name": "TIME_C11",
+										"templateType": "time",
+										"datatype": "TIME",
+										"nativeDatatype": "TIME",
+										"nativeLength": 8
+									},
+									{
+										"name": "SECONDDATE_C12",
+										"templateType": "timestamp",
+										"datatype": "DATETIME",
+										"nativeDatatype": "SECONDDATE",
+										"nativeLength": 19
+									},
+									{
+										"name": "TIMESTAMP_C13",
+										"templateType": "timestamp",
+										"datatype": "DATETIME",
+										"nativeDatatype": "TIMESTAMP",
+										"nativeLength": 27
+									},
+									{
+										"name": "VARCHAR_C14",
+										"templateType": "string",
+										"datatype": "STRING",
+										"length": 30,
+										"nativeDatatype": "NVARCHAR",
+										"nativeLength": 30
+									},
+									{
+										"name": "NVARCHAR_C15",
+										"templateType": "string",
+										"datatype": "STRING",
+										"length": 30,
+										"nativeDatatype": "NVARCHAR",
+										"nativeLength": 30
+									},
+									{
+										"name": "VARBINARY_C17",
+										"templateType": "binary",
+										"datatype": "BINARY",
+										"length": 100,
+										"nativeDatatype": "VARBINARY",
+										"nativeLength": 100,
+										"filterNotAllowed": true
+									},
+									{
+										"name": "CLOB_C18",
+										"templateType": "string",
+										"datatype": "LARGE_CHARACTER_OBJECT",
+										"nativeDatatype": "NCLOB",
+										"nativeLength": 2147483647,
+										"filterNotAllowed": true
+									},
+									{
+										"name": "NCLOB_C19",
+										"templateType": "string",
+										"datatype": "LARGE_CHARACTER_OBJECT",
+										"nativeDatatype": "NCLOB",
+										"nativeLength": 2147483647,
+										"filterNotAllowed": true
+									},
+									{
+										"name": "BLOB_C20",
+										"templateType": "binary",
+										"datatype": "LARGE_BINARY_OBJECT",
+										"nativeDatatype": "BLOB",
+										"nativeLength": 2147483647,
+										"filterNotAllowed": true
+									}
+								],
+								"uniqueKeys": [
+									{
+										"attributeReferences": [
+											"INT_C1"
+										]
+									}
+								]
+							}
+						},
+						"capabilityProperties": [
+							{
+								"name": "isProfileable",
+								"value": "true"
+							},
+							{
+								"name": "isDeltaEnabled",
+								"value": "true"
+							}
+						],
+						"connectionId": "CIT_HANA_CLOUD",
+						"disConnectionId": "CIT_HANA_Cloud",
+						"typeId": "HANA"
+					},
+					"fetchSize": 1000,
+					"forceFetchSize": false,
+					"failOnStringTruncation": true
+				},
+				"outports": [
+					{
+						"name": "outTable",
+						"type": "table",
+						"vtype-ID": "$INLINE.source1_outTable"
+					}
+				]
+			}
+		},
+		"producer1": {
+			"component": "com.sap.database.table.producer",
+			"metadata": {
+				"label": "DF_T_FROM_HANACLOUD_S_ALL_TYPES_TB",
+				"x": -204,
+				"y": -21,
+				"height": 80,
+				"width": 120,
+				"config": {
+					"hanaConnection": {
+						"configurationType": "Configuration Manager",
+						"connectionID": "CIT_HANA_Cloud::SQL::NamedUser"
+					},
+					"mode": "truncate",
+					"qualifiedName": "Table_1",
+					"remoteObjectType": "TABLE",
+					"service": "HANA",
+					"forceBatchSize": false,
+					"batchSize": 1000,
+					"businessName": "Table 1",
+					"hanaAdaptedDataset": {
+						"schema": {
+							"genericType": "TABLE",
+							"tableBasedRepresentation": {
+								"attributes": [
+									{
+										"name": "INT_C1",
+										"templateType": "int32"
+									},
+									{
+										"name": "BIGINT_C2",
+										"templateType": "int64"
+									},
+									{
+										"name": "SMALLINT_C3",
+										"templateType": "int16"
+									},
+									{
+										"name": "TINYINT_C4",
+										"templateType": "uint8"
+									},
+									{
+										"name": "FLOAT_C5",
+										"templateType": "float64"
+									},
+									{
+										"name": "REAL_C6",
+										"templateType": "float32"
+									},
+									{
+										"name": "DOUBLE_C7",
+										"templateType": "float64"
+									},
+									{
+										"name": "DECIMAL_C8",
+										"templateType": "decfloat34"
+									},
+									{
+										"name": "DECIMAL_C9",
+										"templateType": "decimal",
+										"precision": 38,
+										"scale": 10
+									},
+									{
+										"name": "DATE_C10",
+										"templateType": "date"
+									},
+									{
+										"name": "TIME_C11",
+										"templateType": "time"
+									},
+									{
+										"name": "SECONDDATE_C12",
+										"templateType": "timestamp"
+									},
+									{
+										"name": "TIMESTAMP_C13",
+										"templateType": "timestamp"
+									},
+									{
+										"name": "VARCHAR_C14",
+										"templateType": "string",
+										"length": 30
+									},
+									{
+										"name": "NVARCHAR_C15",
+										"templateType": "string",
+										"length": 30
+									},
+									{
+										"name": "VARBINARY_C17",
+										"templateType": "binary",
+										"length": 100
+									},
+									{
+										"name": "CLOB_C18",
+										"templateType": "string"
+									},
+									{
+										"name": "NCLOB_C19",
+										"templateType": "string"
+									},
+									{
+										"name": "BLOB_C20",
+										"templateType": "binary"
+									}
+								],
+								"uniqueKeys": [
+									{
+										"attributeReferences": [
+											"INT_C1"
+										]
+									}
+								]
+							}
+						},
+						"remoteObjectReference": {
+							"connection": {
+								"id": "7692a2b2-baf0-40d9-b977-95903a5bf798::SQL::NamedUser",
+								"type": "HANA_DB"
+							},
+							"name": "DF_T_FROM_HANACLOUD_S_ALL_TYPES_TB",
+							"nativeQualifiedName": "\"CET_DWC_TEST\".\"DF_T_FROM_HANACLOUD_S_ALL_TYPES_TB\"",
+							"qualifiedName": "/CET_DWC_TEST/DF_T_FROM_HANACLOUD_S_ALL_TYPES_TB",
+							"remoteObjectType": "TABLE",
+							"owner": "CET_DWC_TEST"
+						}
+					},
+					"deleteModeMappingType": "",
+					"attributeMappings": [
+						{
+							"expression": "\"INT_C1\"",
+							"target": "INT_C1"
+						},
+						{
+							"expression": "\"BIGINT_C2\"",
+							"target": "BIGINT_C2"
+						},
+						{
+							"expression": "\"SMALLINT_C3\"",
+							"target": "SMALLINT_C3"
+						},
+						{
+							"expression": "\"TINYINT_C4\"",
+							"target": "TINYINT_C4"
+						},
+						{
+							"expression": "\"FLOAT_C5\"",
+							"target": "FLOAT_C5"
+						},
+						{
+							"expression": "\"REAL_C6\"",
+							"target": "REAL_C6"
+						},
+						{
+							"expression": "\"DOUBLE_C7\"",
+							"target": "DOUBLE_C7"
+						},
+						{
+							"expression": "\"DECIMAL_C8\"",
+							"target": "DECIMAL_C8"
+						},
+						{
+							"expression": "\"DECIMAL_C9\"",
+							"target": "DECIMAL_C9"
+						},
+						{
+							"expression": "\"DATE_C10\"",
+							"target": "DATE_C10"
+						},
+						{
+							"expression": "\"TIME_C11\"",
+							"target": "TIME_C11"
+						},
+						{
+							"expression": "\"SECONDDATE_C12\"",
+							"target": "SECONDDATE_C12"
+						},
+						{
+							"expression": "\"TIMESTAMP_C13\"",
+							"target": "TIMESTAMP_C13"
+						},
+						{
+							"expression": "\"VARCHAR_C14\"",
+							"target": "VARCHAR_C14"
+						},
+						{
+							"expression": "\"NVARCHAR_C15\"",
+							"target": "NVARCHAR_C15"
+						},
+						{
+							"expression": "\"VARBINARY_C17\"",
+							"target": "VARBINARY_C17"
+						},
+						{
+							"expression": "\"CLOB_C18\"",
+							"target": "CLOB_C18"
+						},
+						{
+							"expression": "\"NCLOB_C19\"",
+							"target": "NCLOB_C19"
+						},
+						{
+							"expression": "\"BLOB_C20\"",
+							"target": "BLOB_C20"
+						}
+					]
+				},
+				"inports": [
+					{
+						"name": "inTable",
+						"type": "table",
+						"vtype-ID": "$INLINE.source1_outTable"
+					}
+				]
+			}
+		},
+		"GraphTerminator1": {
+			"component": "com.sap.util.graphTerminator",
+			"metadata": {
+				"label": "GraphTerminator1",
+				"x": 486,
+				"y": -1,
+				"height": 80,
+				"width": 120,
+				"config": {}
+			}
+		}
+	},
+	"groups": [],
+	"connections": [
+		{
+			"metadata": {
+				"points": "-361,4 -285,4 -285,19 -209,19"
+			},
+			"src": {
+				"port": "outTable",
+				"process": "source1"
+			},
+			"tgt": {
+				"port": "inTable",
+				"process": "producer1"
+			}
+		},
+		{
+			"metadata": {
+				"points": "-80,19 200.5,19 200.5,39 481,39"
+			},
+			"src": {
+				"port": "outMessage",
+				"process": "producer1"
+			},
+			"tgt": {
+				"port": "stop",
+				"process": "GraphTerminator1"
+			}
+		}
+	],
+	"inports": {},
+	"outports": {},
+	"metadata": {
+		"dwc-restartOnFail": false
+	},
+	"vTypes": {
+		"scalar": {
+			"decimal_38_10": {
+				"name": "decimal_38_10",
+				"description": "Decimal(38,10)",
+				"vflow.type": "scalar",
+				"template": "decimal",
+				"value.precision": 38,
+				"value.scale": 10
+			},
+			"string_30": {
+				"name": "string_30",
+				"description": "String(30)",
+				"vflow.type": "scalar",
+				"template": "string",
+				"value.length": 30
+			},
+			"binary_100": {
+				"name": "binary_100",
+				"description": "Binary(100)",
+				"vflow.type": "scalar",
+				"template": "binary",
+				"value.length": 100
+			}
+		},
+		"structure": {},
+		"table": {
+			"source1_outTable": {
+				"name": "source1_outTable",
+				"vflow.type": "table",
+				"rows": {
+					"components": [
+						{
+							"INT_C1": {
+								"vflow.type": "scalar",
+								"vtype-ID": "com.sap.core.int32"
+							}
+						},
+						{
+							"BIGINT_C2": {
+								"vflow.type": "scalar",
+								"vtype-ID": "com.sap.core.int64"
+							}
+						},
+						{
+							"SMALLINT_C3": {
+								"vflow.type": "scalar",
+								"vtype-ID": "com.sap.core.int16"
+							}
+						},
+						{
+							"TINYINT_C4": {
+								"vflow.type": "scalar",
+								"vtype-ID": "com.sap.core.uint8"
+							}
+						},
+						{
+							"FLOAT_C5": {
+								"vflow.type": "scalar",
+								"vtype-ID": "com.sap.core.float64"
+							}
+						},
+						{
+							"REAL_C6": {
+								"vflow.type": "scalar",
+								"vtype-ID": "com.sap.core.float32"
+							}
+						},
+						{
+							"DOUBLE_C7": {
+								"vflow.type": "scalar",
+								"vtype-ID": "com.sap.core.float64"
+							}
+						},
+						{
+							"DECIMAL_C8": {
+								"vflow.type": "scalar",
+								"vtype-ID": "com.sap.core.decfloat34"
+							}
+						},
+						{
+							"DECIMAL_C9": {
+								"vflow.type": "scalar",
+								"vtype-ID": "$INLINE.decimal_38_10"
+							}
+						},
+						{
+							"DATE_C10": {
+								"vflow.type": "scalar",
+								"vtype-ID": "com.sap.core.date"
+							}
+						},
+						{
+							"TIME_C11": {
+								"vflow.type": "scalar",
+								"vtype-ID": "com.sap.core.time"
+							}
+						},
+						{
+							"SECONDDATE_C12": {
+								"vflow.type": "scalar",
+								"vtype-ID": "com.sap.core.timestamp"
+							}
+						},
+						{
+							"TIMESTAMP_C13": {
+								"vflow.type": "scalar",
+								"vtype-ID": "com.sap.core.timestamp"
+							}
+						},
+						{
+							"VARCHAR_C14": {
+								"vflow.type": "scalar",
+								"vtype-ID": "$INLINE.string_30"
+							}
+						},
+						{
+							"NVARCHAR_C15": {
+								"vflow.type": "scalar",
+								"vtype-ID": "$INLINE.string_30"
+							}
+						},
+						{
+							"VARBINARY_C17": {
+								"vflow.type": "scalar",
+								"vtype-ID": "$INLINE.binary_100"
+							}
+						},
+						{
+							"CLOB_C18": {
+								"vflow.type": "scalar",
+								"vtype-ID": "com.sap.core.string"
+							}
+						},
+						{
+							"NCLOB_C19": {
+								"vflow.type": "scalar",
+								"vtype-ID": "com.sap.core.string"
+							}
+						},
+						{
+							"BLOB_C20": {
+								"vflow.type": "scalar",
+								"vtype-ID": "com.sap.core.binary"
+							}
+						}
+					]
+				}
+			}
+		}
+	}
+}
+}

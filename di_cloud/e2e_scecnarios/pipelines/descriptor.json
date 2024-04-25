@@ -1,0 +1,29 @@
+{
+    "cluster": "CET_DI",
+    "connections": [{
+        "name": "CIT_HANA",
+        "type": "HANA",
+        "value": "CET_HANA_OC"
+    },{
+        "name": "CIT_FILE",
+        "type": "ADL_V2",
+        "value": "CET_FILE"
+    },{
+        "name": "CIT_DMIS",
+        "type": "ABAP",
+        "value": "CET_DMIS_2018"
+    },{
+        "name": "CIT_S4",
+        "type": "ABAP",
+        "value": "CET_S4H_2021",
+        "timeOut": 10
+    }],
+    "graphData": {
+        "namePrefix": "E2E-PIPELINE",
+        "graphs": []
+    },
+    "connData": [{
+        "connection": "CIT_HANA",
+        "targetSchema": "CET_TEST"
+    }]
+}

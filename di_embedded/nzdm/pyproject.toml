@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "DI-Embedded-NZDM-E2E-Test"
+version = "0.0.1"
+description = "DI Embedded NZDM E2E Testing scenarios"
+authors = ["Tammy Yang <tammy.yang@sap.com>, Amy Li <amy.li@sap.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10.9"
+di-qa-e2e-validation = "^1.5.3"
+unittest-xml-reporting = "3.2.0"
+di-embedded-api-test = "*"
+
+[[tool.poetry.source]]
+# This is the SAP Artifactory that's use to _look up_ dependencies. 
+# This is _not_ used for publishing this project as package!
+name = "artifactory-test-validation-framework"
+url = "https://int.repositories.cloud.sap/artifactory/api/pypi/di-qa-python-public/simple"
+priority = "supplemental"
+
+
+[[tool.poetry.source]]
+# This is the SAP Artifactory that's use to _look up_ dependencies. 
+# This is _not_ used for publishing this project as package!
+name = "artifactory-test-framework"
+url = "https://int.repositories.cloud.sap/artifactory/api/pypi/di-embedded-e2e/simple"
+priority = "supplemental"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

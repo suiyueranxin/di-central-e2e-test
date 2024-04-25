@@ -1,0 +1,28 @@
+{
+    "typeId": "GCS",
+    "properties": {
+        "project": "sap-p-and-i-big-data-vora"
+    },
+    "name": "GCS",
+    "technicalName": "GCS_BR_TEST",
+    "description": "",
+    "typeVersion": "1.0.0",
+    "systemId": null,
+    "applicationLabels": [],
+    "endpoints": [
+        {
+            "typeId": "HTTP",
+            "properties": {
+                "rootPath": "/im-bdhe2etests"
+            },
+            "credentials": [
+                {
+                    "typeId": "com.sap.connection.auth/GenericKey",
+                    "properties": {
+                        "key": "{\"auth_provider_x509_cert_url\":\"https://www.googleapis.com/oauth2/v1/certs\",\"auth_uri\":\"https://accounts.google.com/o/oauth2/auth\",\"client_email\":\"im-gcs@sap-p-and-i-big-data-vora.iam.gserviceaccount.com\",\"client_id\":\"114884813802673965613\",\"client_x509_cert_url\":\"https://www.googleapis.com/robot/v1/metadata/x509/im-gcs%40sap-p-and-i-big-data-vora.iam.gserviceaccount.com\",\"private_key\":\"-----BEGIN PRIVATE KEY-----\\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC3GDcogRahYr8Y\\n5SP+Ot9tEILpo6ksRXhSxJM6vLYrF5E3YHt8uET42eS9/6v7Zw7VND4ccYC8j70x\\ns7EcuHnyY8ry+08Yu0ggCbkOWT4iqIC/d02h7IdMi/giD57Jj0dmoG9TVCajbRpr\\nNFmBD5LKdfylFrhq+4t+xnT/oDayuu+8G50VgjwVqpzL69dV2FsSoRbYrnEF1+qq\\nOvR1qd80CagDtEG33SD5bEC8OK39MSDUsP1kfOqICD27lU/aniBOpwvL39tZ2iFn\\nUE+pSBPQ9Ixo1RrfLb2eZCNP7op9sFZGKn/iBv/POxQBdFR9tyCR8B4QH9YG1Z16\\n4UqyYkM/AgMBAAECggEASFdzA7ftXxqK8qUmkX5lZMxPTUzyvKE+J0Wv/lctit0m\\n7UBbyi1sYv6EmGV6aDyR6b9Ygxh9iwMn94lOA1EILbMsLtEIsXbdynrM+VRdbogx\\nRnU24TF5S89J3Pta+7x2s5/UHJJ1KcEj3RO0AYBLuV7g0cGmX+6/cPmspIuC0R7J\\nyDI/BPoNWJjgnyw3f7X3J4DxAbbyEJVUIJz1spXPSp/+ja4t5g9pyaVOAIgVXLeW\\n0EtzqZAezaVe0xPzsMwp60c8TEeUIdXzg1eOVVNj3+hJ/yfDWqZBAplw58H8Mo56\\nG21TSMgd8cqMT9atWgj67vykGX+QCJfA2Et2daZ7oQKBgQD/ccX0xbpn3KdfKajI\\nLQbDrSU3pjHWEQf80xuGVA3rxZFL/G5wNnrV0v8P3Xnv6mw3z18UFh1qx3dy5dm9\\nRW3B+sSEhOQfcM9zSDQykFeAJxtDT37E+9axWvix17HQ5LdyB+iGPinqmgia97Mm\\nwHrdNNEC8k8EuwiSOJLiNIl5pwKBgQC3fii9u7/52Bp2PkMShYT7iCAFh8mffSwa\\nd+fJP9jLHDjMNBIn6SOnidqO84aMg7Pj8LbGAF77N3Vc1W2t8Oq9rZ9sXwI3KSUL\\nPTuxuMRaShY/FGBqJrXSqAolRdPFUUnqGNA7+iiWpGo7PnCNfg7Bjgs+QGbg/ofO\\nBZSiVg3sqQKBgQDZDkwvWXSznIN8EWIh9mCxFQdy6f2e8InhA2F4GyRZG2ADOVR+\\ndUybNNcXHBLpEkEyizs3TjNg8G1HbJhAhCZnljY2hNVzAeDFDK2N6ajwdEpuP7Zw\\nm64qtipss+OcpTxb4OxsZZYoiwqU47WPUC8WmDKiVlNeqa720Ku/GvVWMQKBgBtN\\nGxS31aV/4NgNBX/A+/tM0q7f+EDRp/k8M/F+nWwDA/RmHvlvN83atfklBLTtd5uH\\nmjo1new04TJx0wLZYKPeLGU8caDxb0CP2Mzll9lzQoIaLwo8Pjtcoz3OeObX5G5/\\nSKRT4SwgxGmSLb7vrZRg5Q1bGbOKS3x82hOZSDMZAoGAbkZvueaQBWnq7e63dYDC\\nCgYJb8jGoJTPP6dvrL5htnLpbLvJkBUKddGpLDK8otN/reGe/weX2ybATLCgYN9M\\nVeX5quXNFqVyjegjXTQQrNcUqmuRCLgRjgKULGL30cHhDMHP3o5vb1OEL9uiOk/B\\nwwWxmL9Lvhe3j9M8VdZAj7Y=\\n-----END PRIVATE KEY-----\\n\",\"private_key_id\":\"c66d5850ba33ebfa8fb9ead775f9e8a2ced4c56b\",\"project_id\":\"sap-p-and-i-big-data-vora\",\"token_uri\":\"https://oauth2.googleapis.com/token\",\"type\":\"service_account\"}"
+                    }
+                }
+            ]
+        }
+    ]
+}

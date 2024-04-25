@@ -1,0 +1,4 @@
+{
+    "baseurl": "https://vsystem.ingress.dis-l8f1t.di-dev.shoot.canary.k8s-hana.ondemand.com",
+    "tenant": "tenant-8"
+}

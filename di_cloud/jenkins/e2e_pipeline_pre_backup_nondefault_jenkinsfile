@@ -1,0 +1,42 @@
+@Library('cet-shared-library') _
+
+pipeline {
+  agent {
+    kubernetes {
+      yamlFile 'di_cloud/jenkins/yaml/cet_pod.yaml'
+    }
+  }
+  stages {
+
+    stage('Trigger CET e2e pipeline scenario and validate the result') {
+      steps {
+        dir("di_cloud"){
+          container('central-e2e-testing'){ 
+            catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+              script{
+                injectCredentials{
+                  sh "poetry install"
+                  sh "poetry run python3 -m xmlrunner discover -s br_scenarios/non_default -o testresults -p test_br_non_default_tenant.py -k _pre_backup_"
+                }
+              }
+            }
+            junit "testresults/*.xml"
+          }
+        }
+      }
+    }
+  }
+  post {
+    always { 
+       sendNotifications(currentBuild.currentResult, "Test result is $currentBuild.currentResult")
+    }
+  }
+
+  parameters {
+    string(name: 'cluster', defaultValue: 'CET_BR_TEST', description: 'Pre-defined cluster to run CET scenarios')
+    string(name: 'url', defaultValue: '', description: 'URL of Cluster to run CET scenarios, use its value instead of pre-defined cluster config')
+    string(name: 'tenant', defaultValue: 'br-test', description: 'Tenant of Cluster to run CET scenarios, use its value instead of pre-defined tenant')
+    string(name: 'recipients', defaultValue: 'johnson.liu01@sap.com', description: '')
+    string(name: 'CET_BR_TEST', defaultValue: '{"baseurl": "https://vsystem.ingress.dh-64xiwb1o.dh-testing.shoot.canary.k8s-hana.ondemand.com", "tenant": "br-test", "user": "t1-tester", "password": "Test123!", "admin_user": "t1-admin", "admin_password": "Test1234!", "system_password": "lQi3wv?NkYLfb_H30cl1SfamsF1Mqy"}', description: '')
+  }
+}

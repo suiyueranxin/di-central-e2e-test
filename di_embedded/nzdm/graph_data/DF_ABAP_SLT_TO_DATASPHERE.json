@@ -1,0 +1,1143 @@
+{
+    "name": "DF_ABAP_SLT_TO_DATASPHERE",
+    "inlineGraph": {
+        "properties": {},
+        "metadata": {
+            "dwc-isPrimaryKeysProcessed": true,
+            "dwc-restartOnFail": false
+        },
+        "parameters": {},
+        "parameterMapping": {},
+        "description": "DF_ABAP_SLT_TO_DATASPHERE",
+        "processes": {
+            "producer1": {
+                "component": "com.sap.database.table.producer",
+                "metadata": {
+                    "label": "NZDM_DF_T_FROM_DMIS_LTE2E_WS_LL",
+                    "x": 182,
+                    "y": 12,
+                    "height": 60,
+                    "width": 120,
+                    "config": {
+                        "hanaConnection": {
+                            "configurationType": "Configuration Manager",
+                            "connectionID": "DUMMY_Datasphere::SQL::NamedUser"
+                        },
+                        "mode": "truncate",
+                        "qualifiedName": "NZDM_DF_T_FROM_DMIS_LTE2E_WS_LL",
+                        "remoteObjectType": "TABLE",
+                        "service": "HANA",
+                        "forceBatchSize": false,
+                        "batchSize": 1000,
+                        "attributeMappings": [
+                            {
+                                "expression": "\"CLIENT\"",
+                                "target": "CLIENT"
+                            },
+                            {
+                                "expression": "\"REC_ID\"",
+                                "target": "REC_ID"
+                            },
+                            {
+                                "expression": "\"CHANGE_TIMESTAMP\"",
+                                "target": "CHANGE_TIMESTAMP"
+                            },
+                            {
+                                "expression": "\"FIELD_CHAR01\"",
+                                "target": "FIELD_CHAR01"
+                            },
+                            {
+                                "expression": "\"FIELD_NUMC01\"",
+                                "target": "FIELD_NUMC01"
+                            },
+                            {
+                                "expression": "\"FIELD_NUMC06\"",
+                                "target": "FIELD_NUMC06"
+                            },
+                            {
+                                "expression": "\"FIELD_NUMC10\"",
+                                "target": "FIELD_NUMC10"
+                            },
+                            {
+                                "expression": "\"FIELD_CHAR60\"",
+                                "target": "FIELD_CHAR60"
+                            },
+                            {
+                                "expression": "\"FIELD_DATS\"",
+                                "target": "FIELD_DATS"
+                            },
+                            {
+                                "expression": "\"FIELD_TIMS\"",
+                                "target": "FIELD_TIMS"
+                            }
+                        ],
+                        "hanaAdaptedDataset": {
+                            "schema": {
+                                "genericType": "TABLE",
+                                "tableBasedRepresentation": {
+                                    "attributes": [
+                                        {
+                                            "name": "CLIENT",
+                                            "templateType": "string",
+                                            "length": 3
+                                        },
+                                        {
+                                            "name": "REC_ID",
+                                            "templateType": "string",
+                                            "length": 10
+                                        },
+                                        {
+                                            "name": "CHANGE_TIMESTAMP",
+                                            "templateType": "timestamp"
+                                        },
+                                        {
+                                            "name": "FIELD_CHAR01",
+                                            "templateType": "string",
+                                            "length": 1
+                                        },
+                                        {
+                                            "name": "FIELD_NUMC01",
+                                            "templateType": "string",
+                                            "length": 1
+                                        },
+                                        {
+                                            "name": "FIELD_NUMC06",
+                                            "templateType": "string",
+                                            "length": 6
+                                        },
+                                        {
+                                            "name": "FIELD_NUMC10",
+                                            "templateType": "string",
+                                            "length": 10
+                                        },
+                                        {
+                                            "name": "FIELD_CHAR60",
+                                            "templateType": "string",
+                                            "length": 60
+                                        },
+                                        {
+                                            "name": "FIELD_DATS",
+                                            "templateType": "date"
+                                        },
+                                        {
+                                            "name": "FIELD_TIMS",
+                                            "templateType": "time"
+                                        }
+                                    ],
+                                    "uniqueKeys": [
+                                        {
+                                            "attributeReferences": [
+                                                "CLIENT",
+                                                "REC_ID"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            },
+                            "remoteObjectReference": {
+                                "name": "NZDM_DF_T_FROM_DMIS_LTE2E_WS_LL",
+                                "remoteObjectType": "TABLE",
+                                "qualifiedName": "/CET_DWC_TEST/NZDM_DF_T_FROM_DMIS_LTE2E_WS_LL",
+                                "nativeQualifiedName": "\"CET_DWC_TEST\".\"NZDM_DF_T_FROM_DMIS_LTE2E_WS_LL\"",
+                                "owner": "CET_DWC_TEST"
+                            }
+                        }
+                    },
+                    "inports": [
+                        {
+                            "name": "inTable",
+                            "type": "table",
+                            "vtype-ID": "$INLINE.datasource2_outData"
+                        }
+                    ]
+                }
+            },
+            "datasource2": {
+                "component": "com.sap.abap.slt.reader",
+                "metadata": {
+                    "label": "LTE2E_WS_LL",
+                    "x": 12,
+                    "y": 12,
+                    "height": 60,
+                    "width": 120,
+                    "config": {
+                        "service": "abap_slt",
+                        "isSchemaModified": false,
+                        "operatorID": "com.sap.abap.slt.reader.v3",
+                        "subscriptionType": "None",
+                        "action": "Initial Load",
+                        "chunkSize": 10000,
+                        "subscriptionName": "default_<target>",
+                        "connectionID": "CIT_DMIS_2018_SLT::RFC::NamedUser",
+                        "tableName": {
+                            "remoteObjectReference": {
+                                "connection": {
+                                    "id": "CIT_DMIS_2018_SLT::RFC::NamedUser",
+                                    "type": "ABAP"
+                                },
+                                "name": "LTE2E_WS_LL",
+                                "remoteObjectType": "TABLE",
+                                "qualifiedName": "/SLT/014/LTE2E_WS_LL",
+                                "nativeQualifiedName": "TABLE.LTE2E_WS_LL",
+                                "description": "LTE2E: Test Table - Width Skinny, Size Large"
+                            },
+                            "schema": {
+                                "genericType": "TABLE",
+                                "tableBasedRepresentation": {
+                                    "attributes": [
+                                        {
+                                            "name": "CLIENT",
+                                            "templateType": "string",
+                                            "datatype": "STRING",
+                                            "length": 3,
+                                            "nativeDatatype": "CLNT",
+                                            "descriptions": [
+                                                {
+                                                    "value": "Client",
+                                                    "locale": "en",
+                                                    "type": "SHORT"
+                                                }
+                                            ],
+                                            "properties": [
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "abapDecimals",
+                                                    "value": "000000"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "abapLength",
+                                                    "value": "000003"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "abapType",
+                                                    "value": "CLNT"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "dataElement",
+                                                    "value": "LTE2E_CIT_CLNT"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "domain",
+                                                    "value": "LTE2E_CIT_CLNT"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "nativeContentType",
+                                                    "value": "string"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "nativeLength",
+                                                    "value": "3 "
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "outputLength",
+                                                    "value": "000003"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "referenceField"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "referenceTable"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "semanticType",
+                                                    "value": "STRING"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "valueTable"
+                                                }
+                                            ],
+                                            "key": true
+                                        },
+                                        {
+                                            "name": "REC_ID",
+                                            "templateType": "string",
+                                            "datatype": "STRING",
+                                            "length": 10,
+                                            "nativeDatatype": "NUMC",
+                                            "descriptions": [
+                                                {
+                                                    "value": "Record ID",
+                                                    "locale": "en",
+                                                    "type": "SHORT"
+                                                }
+                                            ],
+                                            "properties": [
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "abapDecimals",
+                                                    "value": "000000"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "abapLength",
+                                                    "value": "000010"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "abapType",
+                                                    "value": "NUMC"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "dataElement",
+                                                    "value": "LTE2E_CIT_REC_ID"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "domain",
+                                                    "value": "LTE2E_CIT_REC_ID"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "nativeContentType",
+                                                    "value": "string"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "nativeLength",
+                                                    "value": "10 "
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "outputLength",
+                                                    "value": "000010"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "referenceField"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "referenceTable"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "semanticType",
+                                                    "value": "ALPHA_NUMBER"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "valueTable"
+                                                }
+                                            ],
+                                            "key": true
+                                        },
+                                        {
+                                            "name": "CHANGE_TIMESTAMP",
+                                            "templateType": "timestamp",
+                                            "datatype": "DATETIME",
+                                            "nativeDatatype": "DEC",
+                                            "descriptions": [
+                                                {
+                                                    "value": "UTC Time Stamp in Long Form (YYYYMMDDhhmmssmmmuuun)",
+                                                    "locale": "en",
+                                                    "type": "SHORT"
+                                                }
+                                            ],
+                                            "properties": [
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "abapDecimals",
+                                                    "value": "000007"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "abapLength",
+                                                    "value": "000021"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "abapType",
+                                                    "value": "DEC"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "dataElement",
+                                                    "value": "TIMESTAMPL"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "domain",
+                                                    "value": "TZNTSTMPL"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "nativeContentType",
+                                                    "value": "decimal"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "nativeLength",
+                                                    "value": "21 "
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "outputLength",
+                                                    "value": "000027"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "referenceField"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "referenceTable"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "semanticType",
+                                                    "value": "TIMESTAMP"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "valueTable"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "FIELD_CHAR01",
+                                            "templateType": "string",
+                                            "datatype": "STRING",
+                                            "length": 1,
+                                            "nativeDatatype": "CHAR",
+                                            "descriptions": [
+                                                {
+                                                    "value": "Char 01",
+                                                    "locale": "en",
+                                                    "type": "SHORT"
+                                                }
+                                            ],
+                                            "properties": [
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "abapDecimals",
+                                                    "value": "000000"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "abapLength",
+                                                    "value": "000001"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "abapType",
+                                                    "value": "CHAR"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "dataElement",
+                                                    "value": "LTE2E_CIT_CHAR01"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "domain",
+                                                    "value": "LTE2E_CIT_CHAR01"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "nativeContentType",
+                                                    "value": "string"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "nativeLength",
+                                                    "value": "1 "
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "outputLength",
+                                                    "value": "000001"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "referenceField"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "referenceTable"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "semanticType",
+                                                    "value": "STRING"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "valueTable"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "FIELD_NUMC01",
+                                            "templateType": "string",
+                                            "datatype": "STRING",
+                                            "length": 1,
+                                            "nativeDatatype": "NUMC",
+                                            "descriptions": [
+                                                {
+                                                    "value": "NUMC01",
+                                                    "locale": "en",
+                                                    "type": "SHORT"
+                                                }
+                                            ],
+                                            "properties": [
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "abapDecimals",
+                                                    "value": "000000"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "abapLength",
+                                                    "value": "000001"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "abapType",
+                                                    "value": "NUMC"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "dataElement",
+                                                    "value": "LTE2E_CIT_NUMC01"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "domain",
+                                                    "value": "LTE2E_CIT_NUMC01"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "nativeContentType",
+                                                    "value": "string"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "nativeLength",
+                                                    "value": "1 "
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "outputLength",
+                                                    "value": "000001"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "referenceField"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "referenceTable"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "semanticType",
+                                                    "value": "ALPHA_NUMBER"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "valueTable"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "FIELD_NUMC06",
+                                            "templateType": "string",
+                                            "datatype": "STRING",
+                                            "length": 6,
+                                            "nativeDatatype": "NUMC",
+                                            "descriptions": [
+                                                {
+                                                    "value": "NUMC 06",
+                                                    "locale": "en",
+                                                    "type": "SHORT"
+                                                }
+                                            ],
+                                            "properties": [
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "abapDecimals",
+                                                    "value": "000000"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "abapLength",
+                                                    "value": "000006"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "abapType",
+                                                    "value": "NUMC"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "dataElement",
+                                                    "value": "LTE2E_CIT_NUMC06"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "domain",
+                                                    "value": "LTE2E_CIT_NUMC06"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "nativeContentType",
+                                                    "value": "string"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "nativeLength",
+                                                    "value": "6 "
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "outputLength",
+                                                    "value": "000006"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "referenceField"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "referenceTable"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "semanticType",
+                                                    "value": "ALPHA_NUMBER"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "valueTable"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "FIELD_NUMC10",
+                                            "templateType": "string",
+                                            "datatype": "STRING",
+                                            "length": 10,
+                                            "nativeDatatype": "NUMC",
+                                            "descriptions": [
+                                                {
+                                                    "value": "Numc 10",
+                                                    "locale": "en",
+                                                    "type": "SHORT"
+                                                }
+                                            ],
+                                            "properties": [
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "abapDecimals",
+                                                    "value": "000000"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "abapLength",
+                                                    "value": "000010"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "abapType",
+                                                    "value": "NUMC"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "dataElement",
+                                                    "value": "LTE2E_CIT_NUMC10"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "domain",
+                                                    "value": "LTE2E_CIT_NUMC10"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "nativeContentType",
+                                                    "value": "string"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "nativeLength",
+                                                    "value": "10 "
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "outputLength",
+                                                    "value": "000010"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "referenceField"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "referenceTable"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "semanticType",
+                                                    "value": "ALPHA_NUMBER"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "valueTable"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "FIELD_CHAR60",
+                                            "templateType": "string",
+                                            "datatype": "STRING",
+                                            "length": 60,
+                                            "nativeDatatype": "CHAR",
+                                            "descriptions": [
+                                                {
+                                                    "value": "CHAR 60",
+                                                    "locale": "en",
+                                                    "type": "SHORT"
+                                                }
+                                            ],
+                                            "properties": [
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "abapDecimals",
+                                                    "value": "000000"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "abapLength",
+                                                    "value": "000060"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "abapType",
+                                                    "value": "CHAR"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "dataElement",
+                                                    "value": "LTE2E_CIT_CHAR60"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "domain",
+                                                    "value": "LTE2E_CIT_CHAR60"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "nativeContentType",
+                                                    "value": "string"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "nativeLength",
+                                                    "value": "60 "
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "outputLength",
+                                                    "value": "000060"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "referenceField"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "referenceTable"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "semanticType",
+                                                    "value": "STRING"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "valueTable"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "FIELD_DATS",
+                                            "templateType": "date",
+                                            "datatype": "DATE",
+                                            "nativeDatatype": "DATS",
+                                            "descriptions": [
+                                                {
+                                                    "value": "Date",
+                                                    "locale": "en",
+                                                    "type": "SHORT"
+                                                }
+                                            ],
+                                            "properties": [
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "abapDecimals",
+                                                    "value": "000000"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "abapLength",
+                                                    "value": "000008"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "abapType",
+                                                    "value": "DATS"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "dataElement",
+                                                    "value": "LTE2E_CIT_DATS"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "domain",
+                                                    "value": "LTE2E_CIT_DATS"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "nativeContentType",
+                                                    "value": "string"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "nativeLength",
+                                                    "value": "8 "
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "outputLength",
+                                                    "value": "000010"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "referenceField"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "referenceTable"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "semanticType",
+                                                    "value": "DATE"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "valueTable"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "FIELD_TIMS",
+                                            "templateType": "time",
+                                            "datatype": "TIME",
+                                            "nativeDatatype": "TIMS",
+                                            "descriptions": [
+                                                {
+                                                    "value": "Time",
+                                                    "locale": "en",
+                                                    "type": "SHORT"
+                                                }
+                                            ],
+                                            "properties": [
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "abapDecimals",
+                                                    "value": "000000"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "abapLength",
+                                                    "value": "000006"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "abapType",
+                                                    "value": "TIMS"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "dataElement",
+                                                    "value": "LTE2E_CIT_TIMS"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "domain",
+                                                    "value": "LTE2E_CIT_TIMS"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "nativeContentType",
+                                                    "value": "string"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "nativeLength",
+                                                    "value": "6 "
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "outputLength",
+                                                    "value": "000008"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "referenceField"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "referenceTable"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "semanticType",
+                                                    "value": "TIME"
+                                                },
+                                                {
+                                                    "namespace": "com.sap.abap",
+                                                    "name": "valueTable"
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "uniqueKeys": [
+                                        {
+                                            "attributeReferences": [
+                                                "CLIENT",
+                                                "REC_ID"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            },
+                            "descriptions": [
+                                {
+                                    "value": "LTE2E: Test Table - Width Skinny, Size Large",
+                                    "locale": "en",
+                                    "type": "SHORT"
+                                }
+                            ],
+                            "properties": [
+                                {
+                                    "namespace": "com.sap.abap",
+                                    "name": "isDeltaEnabled",
+                                    "value": "X"
+                                },
+                                {
+                                    "namespace": "com.sap.abap",
+                                    "name": "isExtractionAllowed",
+                                    "value": "X"
+                                },
+                                {
+                                    "namespace": "com.sap.abap",
+                                    "name": "isExtractionEnabled",
+                                    "value": "X"
+                                },
+                                {
+                                    "namespace": "com.sap.abap",
+                                    "name": "redirectViewName"
+                                },
+                                {
+                                    "namespace": "com.sap.abap",
+                                    "name": "tableCategory",
+                                    "value": "TRANSP",
+                                    "valueDescription": "Transparent table"
+                                }
+                            ],
+                            "capabilityProperties": [
+                                {
+                                    "name": "readOnly",
+                                    "value": "true"
+                                }
+                            ],
+                            "connectionId": "CIT_DMIS_2018_SLT",
+                            "disConnectionId": "CIT_DMIS_2018_SLT",
+                            "typeId": "ABAP",
+                            "definitions": {
+                                "dummy": {}
+                            },
+                            "getCSNFailed": false
+                        }
+                    },
+                    "additionaloutports": [
+                        {
+                            "name": "outData",
+                            "type": "table",
+                            "vtype-ID": "$INLINE.datasource2_outData"
+                        }
+                    ]
+                }
+            },
+            "GraphTerminator1": {
+                "component": "com.sap.util.graphTerminator",
+                "metadata": {
+                    "label": "GraphTerminator1",
+                    "config": {}
+                }
+            }
+        },
+        "groups": [],
+        "connections": [
+            {
+                "metadata": {
+                    "points": "132.5,42 178.5,42"
+                },
+                "src": {
+                    "port": "outData",
+                    "process": "datasource2"
+                },
+                "tgt": {
+                    "port": "inTable",
+                    "process": "producer1"
+                }
+            },
+            {
+                "src": {
+                    "port": "outMessage",
+                    "process": "producer1"
+                },
+                "tgt": {
+                    "port": "stop",
+                    "process": "GraphTerminator1"
+                }
+            }
+        ],
+        "inports": {},
+        "outports": {},
+        "vTypes": {
+            "scalar": {
+                "string_3": {
+                    "name": "string_3",
+                    "description": "String(3)",
+                    "vflow.type": "scalar",
+                    "template": "string",
+                    "value.length": 3
+                },
+                "string_10": {
+                    "name": "string_10",
+                    "description": "String(10)",
+                    "vflow.type": "scalar",
+                    "template": "string",
+                    "value.length": 10
+                },
+                "string_1": {
+                    "name": "string_1",
+                    "description": "String(1)",
+                    "vflow.type": "scalar",
+                    "template": "string",
+                    "value.length": 1
+                },
+                "string_6": {
+                    "name": "string_6",
+                    "description": "String(6)",
+                    "vflow.type": "scalar",
+                    "template": "string",
+                    "value.length": 6
+                },
+                "string_60": {
+                    "name": "string_60",
+                    "description": "String(60)",
+                    "vflow.type": "scalar",
+                    "template": "string",
+                    "value.length": 60
+                }
+            },
+            "structure": {},
+            "table": {
+                "datasource2_outData": {
+                    "name": "datasource2_outData",
+                    "vflow.type": "table",
+                    "rows": {
+                        "components": [
+                            {
+                                "CLIENT": {
+                                    "vflow.type": "scalar",
+                                    "vtype-ID": "$INLINE.string_3"
+                                }
+                            },
+                            {
+                                "REC_ID": {
+                                    "vflow.type": "scalar",
+                                    "vtype-ID": "$INLINE.string_10"
+                                }
+                            },
+                            {
+                                "CHANGE_TIMESTAMP": {
+                                    "vflow.type": "scalar",
+                                    "vtype-ID": "com.sap.core.timestamp"
+                                }
+                            },
+                            {
+                                "FIELD_CHAR01": {
+                                    "vflow.type": "scalar",
+                                    "vtype-ID": "$INLINE.string_1"
+                                }
+                            },
+                            {
+                                "FIELD_NUMC01": {
+                                    "vflow.type": "scalar",
+                                    "vtype-ID": "$INLINE.string_1"
+                                }
+                            },
+                            {
+                                "FIELD_NUMC06": {
+                                    "vflow.type": "scalar",
+                                    "vtype-ID": "$INLINE.string_6"
+                                }
+                            },
+                            {
+                                "FIELD_NUMC10": {
+                                    "vflow.type": "scalar",
+                                    "vtype-ID": "$INLINE.string_10"
+                                }
+                            },
+                            {
+                                "FIELD_CHAR60": {
+                                    "vflow.type": "scalar",
+                                    "vtype-ID": "$INLINE.string_60"
+                                }
+                            },
+                            {
+                                "FIELD_DATS": {
+                                    "vflow.type": "scalar",
+                                    "vtype-ID": "com.sap.core.date"
+                                }
+                            },
+                            {
+                                "FIELD_TIMS": {
+                                    "vflow.type": "scalar",
+                                    "vtype-ID": "com.sap.core.time"
+                                }
+                            },
+                            {
+                                "IUUC_OPERATION": {
+                                    "vflow.type": "scalar",
+                                    "vtype-ID": "$INLINE.string_1"
+                                }
+                            }
+                        ]
+                    },
+                    "keys": [
+                        "CLIENT",
+                        "REC_ID"
+                    ]
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,152 @@
+@Library('cet-shared-library') _
+
+pipeline {
+  agent {
+    kubernetes {
+      yamlFile 'di_embedded/jenkins/yaml/cet_pod.yaml'
+    }
+  }
+  stages {
+
+    stage('Prepare connections in nzdm') {
+      when {
+        expression {params.prepareData}
+      }
+      steps {
+        dir("di_embedded/nzdm"){
+          container('central-e2e-testing'){ 
+            catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+              script {
+                injectCredentials {
+                  sh "poetry install"
+                  sh "poetry run python3 -m xmlrunner discover -s prepare -o testresults -p test_connection.py"
+                }
+              }
+            }
+            junit "testresults/*.xml"
+          }
+        }
+      }
+    }
+
+    stage('Trigger scenarios according upgrade stage and validate the result') {
+      steps {
+        dir("di_embedded/nzdm"){
+          container('central-e2e-testing'){ 
+            catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+              script {
+                injectCredentials {
+                  sh "poetry install"
+                  sh "poetry run python3 utils/run_case.py --output testresults/${stage} --stage ${stage} --test-info-json utils/test_info.json --limited-test-set ${limitedTestSet}" 
+                }
+              }
+            }
+            junit "testresults/${stage}/*.xml"
+          }
+        }
+      }
+    }
+
+    stage('convert result report') {
+      when {
+        allOf {
+          expression {params.send2Xray}
+          expression {params.stage=='post-upgrade'}
+        }
+      }
+      steps {
+        dir("di_embedded/nzdm"){
+          container('central-e2e-testing'){ 
+            sh "poetry run python3 utils/convert_result.py --src testresults/ --target xrayresults/ --jira-json utils/test_info.json"
+          }
+        }
+      }
+    }
+
+    stage('Import results to Xray') {
+      when {
+        allOf {
+          expression {params.send2Xray}
+          expression {fileExists('di_embedded/nzdm/xrayresults/')}
+        }
+      }
+      steps {
+        step(
+          script {
+              echo params.xrayExecutionKey
+              if (params.xrayExecutionKey!='' && params.xrayExecutionKey!=null) {
+                echo 'use existing test execution ' + params.xrayExecutionKey + ' of test plan ' + params.xrayTestPlanKey
+                [
+                  $class: 'XrayImportBuilder', 
+                  endpointName: '/junit', 
+                  importFilePath: 'di_embedded/nzdm/xrayresults/*.xml', 
+                  importInParallel: 'false',
+                  importToSameExecution: 'true', 
+                  projectKey: 'DM00', 
+                  serverInstance: '7281f85f-7369-4a95-ba5f-000051c74551', 
+                  testPlanKey: '${xrayTestPlanKey}',
+                  testExecKey: '${xrayExecutionKey}'
+                ]
+              } else {
+                echo 'create a new test execution on test plan ' + params.xrayTestPlanKey
+                [
+                  $class: 'XrayImportBuilder', 
+                  endpointName: '/junit/multipart', 
+                  importFilePath: 'di_embedded/nzdm/xrayresults/*.xml', 
+                  importInParallel: 'false',
+                  importToSameExecution: 'true', 
+                  projectKey: 'DM00', 
+                  serverInstance: '7281f85f-7369-4a95-ba5f-000051c74551', 
+                  inputInfoSwitcher: 'fileContent',
+                  importInfo: '''{
+                    "fields": {
+                      "project": {
+                        "key": "DM00"
+                      },
+                      "summary": "Test Execution for E2E scenarios",
+                      "issuetype": {
+                        "id": "11904"
+                      },
+                      "components": [
+                        {
+                          "name":"Common Data Services (Cluster)"
+                        }
+                      ],
+                      "customfield_22469": [
+                        "${xrayTestPlanKey}"
+                      ],
+                      "assignee": {
+                        "name": "${assignee}"
+                      }
+                    }
+                  }'''
+                ]
+              }
+          }
+        )
+      }
+    }
+  }
+ 
+  post {
+    always { 
+       sendNotifications(currentBuild.currentResult, "Test result is $currentBuild.currentResult")
+    }
+  }
+
+  parameters {
+    choice(name: 'stage', choices:['pre-upgrade', 'upgrade', 'post-upgrade'], description: 'Upgrade stage')
+    extendedChoice(name: 'limitedTestSet', type:'PT_CHECKBOX', multiSelectDelimiter: ',', visibleItemCount: 5, value: 'test_df_from_hana_on_prem_to_datasphere,test_df_from_s4h_cds_to_hana_cloud,test_df_from_abap_slt_to_datasphere,test_rf_from_hana_on_prem_to_datasphere_initial,test_rf_from_abap_cds_to_hana_cloud_delta,test_rf_from_dmis_slt_to_gbq_initial,test_rf_from_abap_cds_to_adlv2_delta,test_rf_from_dmis_odp_to_hdl_initial,test_rf_from_hana_on_cloud_to_s3_initial,test_rf_from_abap_cds_to_gcs_initial', description: 'Select the cases you want to run.', quoteValue: false)
+    booleanParam(name:'prepareData', defaultValue:false, description:'Whether create connections in the cluster.')
+    string(name: 'cluster', defaultValue: 'CET_NZDM', description: 'Pre-defined cluster to run CET scenarios')
+    string(name: 'CET_NZDM', defaultValue: '{"baseurl": "https://vsystem.ingress.dis-utxsz.di-dev.shoot.canary.k8s-hana.ondemand.com", "tenant": "tenant-X", "user": "dis-user", "password": "XXXXX"}', description: '')
+    booleanParam(name:'send2Xray', defaultValue:false, description:'Send the test results to Jira Xray.')
+    string(name: 'xrayTestPlanKey', defaultValue: 'DM00-13835', description:'Only works when send2Xray is checked.')
+    string(name: 'xrayExecutionKey', defaultValue: 'DM00-13836', description: 'Only works when send2Xray is checked. Leave the option empty to create a new test execution for the test plan')
+    string(name: 'assignee', defaultValue: 'I052186', description: 'Test execution task owner')
+    string(name: 'recipients', defaultValue: 'amy.li01@sap.com', description: 'Contact to receive test results')
+  }
+}
+
+
+

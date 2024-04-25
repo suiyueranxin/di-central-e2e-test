@@ -1,0 +1,12 @@
+kubernetes
+unittest-xml-reporting>=3.0.4
+lxml>=4.6.2
+parameterized>=0.7.0
+requests==2.31.0
+coverage==5.3
+parallely==0.2.6
+boto3==1.14.25
+moto==3.1.16
+tenacity~=5.1.1
+nslookup==1.6.1
+PyYAML==6.0

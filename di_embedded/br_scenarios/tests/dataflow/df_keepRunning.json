@@ -1,0 +1,76 @@
+{
+    "inlineGraph": {
+        "properties": {},
+        "metadata": {
+            "dwc-restartOnFail": false
+        },
+        
+        "description": "",
+	"processes": {
+		"javascriptv2operator1": {
+			"component": "com.sap.system.jsengine.v2",
+			"metadata": {
+				"label": "Javascript(v2) Operator",
+				"x": 50,
+				"y": 183,
+				"height": 80,
+				"width": 120,
+				"extensible": true,
+				"generation": 1,
+				"config": {
+					"script": "// your script goes in here\n\n\nvar counter = 0\n$.addTimer(\"246400s\",gen)\n\nfunction gen(ctx) {\n    for (var i = 0; i < 3; i++ ) {\n        $.output1(counter)\n        counter++  \n        }\n    \n}"
+				},
+				"additionaloutports": [
+					{
+						"name": "output1",
+						"type": "scalar",
+						"vtype-ID": "com.sap.core.int32"
+					}
+				]
+			}
+		},
+		"graphterminator1": {
+			"component": "com.sap.util.graphTerminator",
+			"metadata": {
+				"label": "Graph Terminator",
+				"x": 573,
+				"y": 178,
+				"height": 80,
+				"width": 120,
+				"generation": 1,
+				"config": {},
+				"additionalinports": [
+					{
+						"name": "input1",
+						"type": "scalar",
+						"isPropagated": true,
+						"vtype-ID": "com.sap.core.int32"
+					}
+				]
+			}
+		}
+	},
+	"groups": [],
+	"connections": [
+		{
+			"metadata": {
+				"points": "174,223 371,223 371,227 568,227"
+			},
+			"src": {
+				"port": "output1",
+				"process": "javascriptv2operator1"
+			},
+			"tgt": {
+				"port": "input1",
+				"process": "graphterminator1"
+			}
+		}
+	],
+	"inports": {},
+	"outports": {},
+	"metadata": {
+		"generation": 1
+	}
+        
+    },"autoRestartConfig":{"maxRestartCount":3,"restartDelaySeconds":2,"resetTimeThreshold":"180s"}
+}

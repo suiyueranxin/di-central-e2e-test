@@ -1,0 +1,27 @@
+{
+    "typeId": "ADL",
+    "properties": {
+        "accountName": "dataintegration2021",
+        "rootPath": "dataintegration2021"
+    },
+    "name": "CIT_ADLV2",
+    "technicalName": "CIT_ADLV2",
+    "description": "",
+    "typeVersion": "2.0.0",
+    "systemId": null,
+    "applicationLabels": [],
+    "endpoints": [
+        {
+            "typeId": "HTTP",
+            "properties": {},
+            "credentials": [
+                {
+                    "typeId": "com.sap.connection.auth/SharedKey",
+                    "properties": {
+                        "accountKey": "WTdS4oOBf3p5StcqCIGDaBfAg4aDNQheoDxpQonZY32nQTVVvCG52BpSpY5Mt+vRNne8PupK4QECdCRqqcmMrQ=="
+                    }
+                }
+            ]
+        }
+    ]
+}

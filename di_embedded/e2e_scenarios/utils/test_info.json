@@ -1,0 +1,154 @@
+{
+  "test_data_flow": {
+    "test_df_from_hana_on_premise_to_local_repo_with_append_mode": {
+      "xray_link": "DM00-13413",
+      "priority": "P1"
+    },
+    "test_df_from_s4hana_on_premise_to_local_repo_with_append_mode": {
+      "xray_link": "DM00-13227",
+      "priority": "P1"
+    },
+    "test_df_from_local_repo_to_local_repo_with_truncate_mode": {
+      "xray_link": "DM00-13351",
+      "priority": "P1"
+    },
+    "test_df_from_local_repo_to_local_repo_Aggregation_with_truncate_mode": {
+      "xray_link": "DM00-14021",
+      "priority": "P1"
+    },
+    "test_df_from_hana_on_cloud_to_local_repo_with_truncate_mode": {
+      "xray_link": "DM00-13368",
+      "priority": "P1"
+    },
+    "test_df_from_s4hana_on_cloud_to_local_repo_with_append_mode": {
+      "xray_link": "DM00-13366",
+      "priority": "P1"
+    }
+  },
+  "test_replication_flow": {
+    "test_rf_from_abap_slt_to_local_repo_initial": {
+      "xray_link": "DM00-13228",
+      "priority": "P1"
+    },
+    "test_rf_from_hana_on_cloud_to_hana_on_prem_initial": {
+      "xray_link": "DM00-13373",
+      "priority": "P1"
+    },
+    "test_rf_from_S4HANAOP_to_hana_on_cloud_initial_then_df_to_local_repo": {
+      "xray_link": "DM00-13369",
+      "priority": "P1"
+    },
+    "test_start_rf_from_abap_slt_to_local_repo_delta": {
+      "xray_link": "DM00-13229",
+      "priority": "P1"
+    },
+    "test_validate_rf_from_abap_slt_to_local_repo_delta": {
+      "xray_link": "DM00-13229",
+      "priority": "P1"
+    },
+    "test_start_rf_from_abap_cds_to_hdl_files_delta_then_df_to_local_repo": {
+      "xray_link": "DM00-13363",
+      "priority": "P1"
+    },
+    "test_validate_rf_from_abap_cds_to_hdl_files_delta_then_df_to_local_repo": {
+      "xray_link": "DM00-13363",
+      "priority": "P1"
+    },
+    "test_start_rf_from_s4h_odp_to_hana_on_cloud_delta": {
+      "xray_link": "DM00-13371",
+      "priority": "P1"
+    },
+    "test_validate_rf_from_s4h_odp_to_hana_on_cloud_delta": {
+      "xray_link": "DM00-13371",
+      "priority": "P1"
+    },
+    "test_start_rf_from_dmis_odp_to_local_repo_delta": {
+      "xray_link": "DM00-13370",
+      "priority": "P1"
+    },
+    "test_validate_rf_from_dmis_odp_to_local_repo_delta": {
+      "xray_link": "DM00-13370",
+      "priority": "P1"
+    },
+    "test_start_rf_from_hana_on_premise_to_hana_on_cloud_delta": {
+      "xray_link": "DM00-13372",
+      "priority": "P1"
+    },
+    "test_validate_rf_from_hana_on_premise_to_hana_on_cloud_delta": {
+      "xray_link": "DM00-13372",
+      "priority": "P1"
+    },
+    "test_rf_from_S4HCLOUDCC8_to_local_repo_initial": {
+      "xray_link": "DM00-13364",
+      "priority": "P1"
+    },
+    "test_start_rf_from_odp_to_adl_v2_delta": {
+      "xray_link": "DM00-14650",
+      "priority": "P1"
+    },
+    "test_validate_rf_from_odp_to_adl_v2_delta": {
+      "xray_link": "DM00-14650",
+      "priority": "P1"
+    },
+    "test_rf_from_slt_to_adl_v2_initial": {
+      "xray_link": "DM00-14651",
+      "priority": "P1"
+    },
+    "test_start_rf_from_hana_on_cloud_to_local_repo_via_delta_enabled_local_table_delta": {
+      "xray_link": "DM00-14663",
+      "priority": "P1"
+    },
+    "test_validate_rf_from_hana_on_cloud_to_local_repo_via_delta_enabled_local_table_delta": {
+      "xray_link": "DM00-14663",
+      "priority": "P1"
+    },
+    "test_start_rf_from_S4_hanaOP_cds_to_S3_Delta": {
+      "xray_link": "DM00-14716",
+      "priority": "P1"
+    },
+    "test_validate_rf_from_S4_hanaOP_cds_to_S3_Delta": {
+      "xray_link": "DM00-14716",
+      "priority": "P1"
+    },
+    "test_start_rf_from_abap_slt_to_GCS_Delta": {
+      "xray_link": "DM00-14717",
+      "priority": "P1"
+    },
+    "test_validate_rf_from_abap_slt_to_GCS_Delta": {
+      "xray_link": "DM00-14717",
+      "priority": "P1"
+    },
+    "test_rf_from_DMIS_SLT_TO_GBQ_initial": {
+      "xray_link": "DM00-14667",
+      "priority": "P1"
+    },
+    "test_start_rf_from_S4HOP_TO_GBQ_DELTA": {
+      "xray_link": "DM00-14668",
+      "priority": "P1"
+    },
+    "test_validate_rf_from_S4HOP_TO_GBQ_DELTA": {
+      "xray_link": "DM00-14668",
+      "priority": "P1"
+    },
+    "test_start_rf_from_HANA_CLOUD_TO_GBQ_DELTA": {
+      "xray_link": "DM00-14669",
+      "priority": "P1"
+    },
+    "test_validate_rf_from_HANA_CLOUD_TO_GBQ_DELTA": {
+      "xray_link": "DM00-14669",
+      "priority": "P1"
+    },
+    "test_rf_hanaoncloud_to_gcs_initial": {
+      "xray_link": "DM00-14605",
+      "priority": "P1"
+    },
+    "test_start_rf_hanaop_to_s3_delta": {
+      "xray_link": "DM00-14606",
+      "priority": "P1"
+    },
+    "test_validate_rf_hanaop_to_s3_delta": {
+      "xray_link": "DM00-14606",
+      "priority": "P1"
+    }
+  }
+}

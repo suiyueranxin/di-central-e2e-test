@@ -1,0 +1,21 @@
+{
+    "cluster": "CET_BR_TEST",
+    "connections": [{
+        "name": "BR_HANA",
+        "type": "HANA",
+        "value": "CET_HANA_OC"
+    },{
+        "name": "BR_S4",
+        "type": "ABAP",
+        "value": "CET_S4H_2021",
+        "timeOut": 10
+    },{
+        "name": "BR_ADL_V2",
+        "type": "ADL_V2",
+        "value": "CET_FILE"
+    }],
+    "graphData": {
+        "namePrefix": "BR-TEST-PIPELINE",
+        "graphs": []
+    }
+}

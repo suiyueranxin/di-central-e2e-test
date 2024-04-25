@@ -1,0 +1,5 @@
+{
+  "name": "DI",
+  "baseurl": "https://vsystem.ingress.dh-u6s0q273.dh-testing.shoot.canary.k8s-hana.ondemand.com",
+  "tenant": "central-e2e-test"
+}

@@ -1,0 +1,9 @@
+apiVersion: dis.datahub.sap.com/v1alpha1
+kind: Cluster
+metadata:
+ annotations:
+  dis.datahub.sap.com/backup-name: "<backupName>"
+  dis.datahub.sap.com/mark-for-restoration: "true"
+  dis.datahub.sap.com/uninitialized: "true"
+  dis.datahub.sap.com/restore-timestamp: "<timestamp>"
+ name: <resotredClusterName>

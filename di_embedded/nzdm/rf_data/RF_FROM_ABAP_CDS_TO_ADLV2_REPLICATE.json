@@ -1,0 +1,21 @@
+{
+    "source": {
+        "name": "CIT_S4H_2021_ABAP",
+        "container": "CDS_EXTRACTION",
+        "table": "DHE2E_CDS_WS_LX"
+    }
+    ,
+    "target": {
+        "name": "IM_ADL_V2",
+        "container": "CET_DWC_TEST",
+        "table": "NZDM_WS_LX_REPLICATE"
+    },
+    "task": {
+        "name": "RF_FROM_ABAP_CDS_TO_ADLV2_REPLICATE",
+        "is_active": true,
+        "priority":50,
+        "schedule_type":"IMMEDIATE",
+        "load_type": "REPLICATE",
+        "truncate": true
+    }
+}

@@ -1,0 +1,5 @@
+{
+    "name": "CET_STAGING",
+    "baseurl": "https://vsystem.ingress.dh-ymjlc3b1.di-staging.shoot.live.k8s-hana.ondemand.com",
+    "tenant": "central-e2e-test"
+}

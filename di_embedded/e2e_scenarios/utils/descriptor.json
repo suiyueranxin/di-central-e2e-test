@@ -1,0 +1,50 @@
+{
+    "cluster": "CET_DS",
+    "space": "DI_CET",
+    "connections": [{
+        "name": "CIT_S4H_2021 (ABAP)",
+        "value": "CET_S4H_2021",
+        "type": "ABAP"
+    }, {
+        "name": "HANA_OnPrem",
+        "value": "CET_HANA_OP",
+        "type": "HANA"
+    }, {
+        "name": "CIT_HANA_Cloud",
+        "value": "CET_HANA_OC",
+        "type": "HANA"
+    }, {
+        "name": "HDL_DB",
+        "value": "CET_HDL_DB",
+        "type": "HDL_DB"
+    }, {
+        "name": "HDL_FILES",
+        "value": "CET_HDL_FILES",
+        "type": "HDL_FILES"
+    }, {
+        "name": "CIT_DMIS_2018_SLT (ABAP)",
+        "value": "CET_DMIS_2018",
+        "type": "ABAP"
+    }, {
+        "name": "CIT_DMIS_2018_ODP (ABAP)",
+        "value": "CET_DMIS_2018",
+        "type": "ABAP"
+    }, {
+        "name": "IM_ADL_V2",
+        "value": "CET_FILE",
+        "type": "ADL_V2"
+    },{
+        "name": "IM_GBQ",
+        "value": "CET_GBQ",
+        "type": "GBQ"
+    }, {
+        "name": "IM_S3",
+        "value": "CET_S3",
+        "type": "S3"
+    }, {
+        "name": "IM_GCS",
+        "value": "CET_GCS",
+        "type": "GCS"
+    }],
+    "testDataContainer": "CET_DWC_TEST"
+}

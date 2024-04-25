@@ -1,0 +1,5 @@
+{
+    "name": "HANA_ON_PREM",
+    "address": "im-ds-hana-gcp.datahub.sapcloud.io",
+    "port": 30015
+}

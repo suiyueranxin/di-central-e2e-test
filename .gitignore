@@ -1,0 +1,17 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Secrets in connection data
+*.secrets.json
+
+# MS Visual Code configuration and settings
+.vscode
+
+# Log files produced by SAP NW RFC
+dev_rfc.log
+
+# Test and coverage results
+testresults/
+.coverage

@@ -1,0 +1,5 @@
+{
+    "name": "CET_BR",
+    "baseurl": "https://vsystem.ingress.dh-64xiwb1o.dh-testing.shoot.canary.k8s-hana.ondemand.com",
+    "tenant": "br-test"
+}

@@ -1,0 +1,382 @@
+{
+    "test_customer_issues": {
+      "test_dibugs_10531": {
+        "xray_link": "DM00-6792",
+        "priority": "P1"
+      },
+      "test_dibugs_11570": {
+        "xray_link": "DM00-6797",
+        "priority": "P1"
+      },
+      "test_dibugs_12139": {
+        "xray_link": "DM00-6802",
+        "priority": "P1"
+      },
+      "test_dibugs_13121": {
+        "xray_link": "DM00-9582",
+        "priority": "P1"
+      },
+      "test_dibugs_11222": {
+        "xray_link": "DM00-9873",
+        "priority": "P1"
+      },
+      "test_dibugs_13282": {
+        "xray_link": "DM00-9936",
+        "priority": "P1"
+      },
+      "test_dibugs_11143": {
+        "xray_link": "DM00-9937",
+        "priority": "P1"
+      },
+      "test_dibugs_14309": {
+        "xray_link": "DM00-10239",
+        "priority": "P1"
+      },
+      "test_dibugs_18162_OData_with_OAuth2": {
+        "xray_link": "DM00-14715",
+        "priority": "P1"
+      },
+      "test_dibugs_18399": {
+        "xray_link": "DM00-14718",
+        "priority": "P1"
+      },
+      "test_dibugs_18486_statuscheck_ADLV2_oauth2_client": {
+        "xray_link": "DM00-14831",
+        "priority": "P1"
+      },
+      "test_dibugs_18486_statuscheck_ADLV2_oauth2_user": {
+        "xray_link": "DM00-14832",
+        "priority": "P1"
+      },
+      "test_dibugs_18291_SFTP_connection_with_RSA_key": {
+        "xray_link": "DM00-14833",
+        "priority": "P1"
+      },
+      "test_dibugs_18249": {
+        "xray_link": "DM00-15239",
+        "priority": "P2"
+      },
+      "test_dibugs_18162": {
+        "xray_link": "DM00-14715",
+        "priority": "P1"
+      }
+    },
+    "test_e2e_pipeline_runtime_in_sequence": {
+      "test_gen1_abap_cds_to_hana_initial": {
+        "xray_link": "DM00-6764",
+        "priority": "P2"
+      },
+      "test_gen1_abap_cds_to_hana_delta": {
+        "xray_link": "DM00-6765",
+        "priority": "P1"
+      },
+      "test_gen1_abap_cds_to_hana_replication": {
+        "xray_link": "DM00-6766",
+        "priority": "P2"
+      },
+      "test_gen1_abap_cds_to_kafka_initial": {
+        "xray_link": "DM00-6771",
+        "priority": "P3"
+      },
+      "test_gen1_abap_slt_to_hana_initial": {
+        "xray_link": "DM00-6762",
+        "priority": "P2"
+      },
+      "test_gen1_abap_slt_to_hana_delta": {
+        "xray_link": "DM00-6789",
+        "priority": "P1"
+      },
+      "test_gen1_abap_slt_to_hana_replication": {
+        "xray_link": "DM00-6788",
+        "priority": "P2"
+      },
+      "test_gen1_abap_slt_to_kafka_initial": {
+        "xray_link": "DM00-6763",
+        "priority": "P3"
+      },
+      "test_gen2_abap_cds_to_hana_initial": {
+        "xray_link": "DM00-10137",
+        "priority": "P2"
+      },
+      "test_gen2_abap_cds_to_hana_delta": {
+        "xray_link": "DM00-10138",
+        "priority": "P1"
+      },
+      "test_gen2_abap_cds_to_hana_replication": {
+        "xray_link": "DM00-10139",
+        "priority": "P2"
+      },
+      "test_gen2_abap_cds_to_kafka_initial": {
+        "xray_link": "DM00-10141",
+        "priority": "P3"
+      },
+      "test_gen2_abap_slt_to_hana_initial": {
+        "xray_link": "DM00-6790",
+        "priority": "P2"
+      },
+      "test_gen2_abap_slt_to_hana_delta": {
+        "xray_link": "DM00-10135",
+        "priority": "P1"
+      },
+      "test_gen2_abap_slt_to_hana_replication": {
+        "xray_link": "DM00-10136",
+        "priority": "P2"
+      },
+      "test_gen2_abap_slt_to_kafka_initial": {
+        "xray_link": "DM00-10140",
+        "priority": "P3"
+      }
+    },
+    "test_cit_pipeline_runtime_large_dataset_in_parallel": {
+       "test_gen1_start_abap_cds_to_hana_initial_fat": {
+        "xray_link": "DM00-9988",
+        "priority": "P2"
+      },
+      "test_gen1_validate_abap_cds_to_hana_initial_fat": {
+        "xray_link": "DM00-9988",
+        "priority": "P2"
+      },
+      "test_gen1_start_abap_cds_to_filestore_initial_fat": {
+        "xray_link": "DM00-9989",
+        "priority": "P3"
+      },
+      "test_gen1_validate_abap_cds_to_filestore_initial_fat": {
+        "xray_link": "DM00-9989",
+        "priority": "P3"
+      },
+      "test_gen1_start_abap_cds_to_kafka_initial_delta": {
+        "xray_link": "DM00-9995",
+        "priority": "P3"
+      },
+      "test_gen1_validate_abap_cds_to_kafka_initial_delta": {
+        "xray_link": "DM00-9995",
+        "priority": "P3"
+      },
+      "test_gen1_start_abap_cds_to_filestore_initial_delta": {
+        "xray_link": "DM00-9992",
+        "priority": "P3"
+      },
+      "test_gen1_validate_abap_cds_to_filestore_initial_delta": {
+        "xray_link": "DM00-9992",
+        "priority": "P3"
+      },
+      "test_gen1_start_abap_slt_to_filestore_initial_fat": {
+        "xray_link": "DM00-10064",
+        "priority": "P3"
+      },
+      "test_gen1_validate_abap_slt_to_filestore_initial_fat": {
+        "xray_link": "DM00-10064",
+        "priority": "P3"
+      },
+      "test_gen1_start_abap_slt_to_kafka_initial_delta": {
+        "xray_link": "DM00-10061",
+        "priority": "P3"
+      },
+      "test_gen1_validate_abap_slt_to_kafka_initial_delta": {
+        "xray_link": "DM00-10061",
+        "priority": "P3"
+      },
+      "test_gen1_start_abap_slt_to_filestore_initial_delta": {
+        "xray_link": "DM00-10065",
+        "priority": "P3"
+      },
+      "test_gen1_validate_abap_slt_to_filestore_initial_delta": {
+        "xray_link": "DM00-10065",
+        "priority": "P3"
+      },
+      "test_gen2_start_abap_cds_to_hana_initial_fat": {
+        "xray_link": "DM00-10035",
+        "priority": "P2"
+      },
+      "test_gen2_validate_abap_cds_to_hana_initial_fat": {
+        "xray_link": "DM00-10035",
+        "priority": "P2"
+      },
+      "test_gen2_start_abap_cds_to_filestore_initial_fat": {
+        "xray_link": "DM00-10036",
+        "priority": "P2"
+      },
+      "test_gen2_validate_abap_cds_to_filestore_initial_fat": {
+        "xray_link": "DM00-10036",
+        "priority": "P2"
+      },
+      "test_gen2_start_abap_cds_to_kafka_initial_delta": {
+        "xray_link": "DM00-10040",
+        "priority": "P3"
+      },
+      "test_gen2_validate_abap_cds_to_kafka_initial_delta": {
+        "xray_link": "DM00-10040",
+        "priority": "P3"
+      },
+      "test_gen2_start_abap_cds_to_filestore_initial_delta": {
+        "xray_link": "DM00-10037",
+        "priority": "P2"
+      },
+      "test_gen2_validate_abap_cds_to_filestore_initial_delta": {
+        "xray_link": "DM00-10037",
+        "priority": "P2"
+      },
+      "test_gen2_start_abap_slt_to_filestore_initial_delta": {
+        "xray_link": "DM00-10048",
+        "priority": "P3"
+      },
+      "test_gen2_validate_abap_slt_to_filestore_initial_delta": {
+        "xray_link": "DM00-10048",
+        "priority": "P3"
+      },
+      "test_gen2_start_abap_slt_to_kafka_initial_delta": {
+        "xray_link": "DM00-10042",
+        "priority": "P3"
+      },
+      "test_gen2_validate_abap_slt_to_kafka_initial_delta": {
+        "xray_link": "DM00-10042",
+        "priority": "P3"
+      }
+    },
+    "test_cit_pipeline_runtime_small_dataset_in_sequence": {
+      "test_validate_abap_cds_to_hana_initial_small": {
+        "xray_link": "DM00-9971",
+        "priority": "P1"
+      },
+      "test_validate_abap_cds_to_filestore_initial_small": {
+        "xray_link": "DM00-9978",
+        "priority": "P1"
+      },
+      "test_validate_abap_cds_to_kafka_delta": {
+        "xray_link": "DM00-9994",
+        "priority": "P1"
+      },
+      "test_validate_abap_cds_to_filestore_delta": {
+        "xray_link": "DM00-9993",
+        "priority": "P1"
+      },
+      "test_validate_abap_slt_to_hana_initial_small": {
+        "xray_link": "DM00-10059",
+        "priority": "P1"
+      },
+      "test_validate_abap_slt_to_hana_initial_fat": {
+        "xray_link": "DM00-10060",
+        "priority": "P2"
+      },
+      "test_validate_abap_slt_to_filestore_initial_small": {
+        "xray_link": "DM00-10063",
+        "priority": "P1"
+      },
+      "test_validate_abap_slt_to_kafka_delta": {
+        "xray_link": "DM00-10062",
+        "priority": "P1"
+      },
+      "test_validate_abap_slt_to_filestore_delta": {
+        "xray_link": "DM00-10066",
+        "priority": "P1"
+      },
+      "test_validate_abap_cds_to_hana_initial_small_gen2": {
+        "xray_link": "DM00-10034",
+        "priority": "P1"
+      },
+      "test_validate_abap_cds_to_filestore_initial_small_gen2": {
+        "xray_link": "DM00-10033",
+        "priority": "P1"
+      },
+      "test_validate_abap_cds_to_kafka_delta_gen2": {
+        "xray_link": "DM00-10039",
+        "priority": "P1"
+      },
+      "test_validate_abap_cds_to_filestore_delta_gen2": {
+        "xray_link": "DM00-10038",
+        "priority": "P1"
+      },
+      "test_validate_abap_slt_to_filestore_initial_small_gen2": {
+        "xray_link": "DM00-10046",
+        "priority": "P1"
+      },
+      "test_validate_abap_slt_to_hana_initial_small_gen2": {
+        "xray_link": "DM00-10044",
+        "priority": "P1"
+      },
+      "test_validate_abap_slt_to_filestore_initial_fat_gen2": {
+        "xray_link": "DM00-10047",
+        "priority": "P2"
+      },
+      "test_validate_abap_slt_to_hana_initial_fat_gen2": {
+        "xray_link": "DM00-10045",
+        "priority": "P2"
+      },
+      "test_validate_abap_slt_to_kafka_delta_gen2": {
+        "xray_link": "DM00-10043",
+        "priority": "P1"
+      },
+      "test_validate_abap_slt_to_filestore_delta_gen2": {
+        "xray_link": "DM00-10049",
+        "priority": "P1"
+      }
+    },
+    "test_cit_rms_run_small_dataset_in_sequence": {
+      "test_abap_cds_to_hc_small": {
+        "xray_link": "DM00-9448",
+        "priority": "P1"
+      },
+      "test_abap_cds_to_hc_deltaSmall": {
+        "xray_link": "DM00-9449",
+        "priority": "P1"
+      },
+      "test_abap_slt_to_hc_small": {
+        "xray_link": "DM00-9452",
+        "priority": "P1"
+      },
+      "test_abap_slt_to_hc_deltaSmall": {
+        "xray_link": "DM00-9453",
+        "priority": "P1"
+      },
+      "test_abap_cds_to_adlv2_small": {
+        "xray_link": "DM00-9458",
+        "priority": "P1"
+      },
+      "test_abap_cds_to_adlv2_deltaSmall": {
+        "xray_link": "DM00-9459",
+        "priority": "P1"
+      },
+      "test_abap_slt_to_adlv2_small": {
+        "xray_link": "DM00-9455",
+        "priority": "P1"
+      },
+      "test_abap_slt_to_adlv2_deltaSmall": {
+        "xray_link": "DM00-9454",
+        "priority": "P1"
+      }
+    },
+    "test_cit_rms_run_large_dataset_in_parallel": {
+      "test_run_abap_cds_to_hc_fat": {
+        "xray_link": "DM00-9450",
+        "priority": "P3"
+      },
+      "test_validate_abap_cds_to_hc_fat": {
+        "xray_link": "DM00-9450",
+        "priority": "P3"
+      },
+      "test_run_abap_slt_to_hc_fat": {
+        "xray_link": "DM00-9451",
+        "priority": "P3"
+      },
+      "test_validate_abap_slt_to_hc_fat": {
+        "xray_link": "DM00-9451",
+        "priority": "P3"
+      },
+      "test_run_abap_cds_to_adlv2_fat": {
+        "xray_link": "DM00-9457",
+        "priority": "P3"
+      },
+      "test_validate_abap_cds_to_adlv2_fat": {
+        "xray_link": "DM00-9457",
+        "priority": "P3"
+      },
+      "test_run_abap_slt_to_adlv2_fat": {
+        "xray_link": "DM00-9456",
+        "priority": "P3"
+      },
+      "test_validate_abap_slt_to_adlv2_fat": {
+        "xray_link": "DM00-9456",
+        "priority": "P3"
+      }
+    }
+  }

@@ -1,0 +1,31 @@
+apiVersion: v1
+clusters:
+  - cluster:
+      insecure-skip-tls-verify: true
+      server: https://api.<shoot_name>.di-demo.shoot.canary.k8s-hana.ondemand.com
+    name: shoot--di-demo--<shoot_name>
+contexts:
+  - context:
+      cluster: shoot--di-demo--<shoot_name>
+      user: KUBECONTEXT
+    name: shoot--di-demo--<shoot_name>
+current-context: shoot--di-demo--<shoot_name>
+kind: Config
+preferences: {}
+users:
+  - name: KUBECONTEXT
+    user:
+      exec:
+        apiVersion: client.authentication.k8s.io/v1beta1
+        command: kubectl
+        args:
+          - oidc-login
+          - get-token
+          - --oidc-issuer-url
+          - https://haas.accounts.ondemand.com
+          - --oidc-client-id
+          - ccebb712-ce5f-49da-aba9-15645ce64af9
+          - --oidc-client-secret
+          - G_0[v-2[Fap=TZk1xhLRFC8O/ADcYH[GH
+          # Comment out the line below to use X-Server browser-based login
+          - --grant-type=password

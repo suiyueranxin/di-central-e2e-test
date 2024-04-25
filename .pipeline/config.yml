@@ -1,0 +1,18 @@
+general:
+  productiveBranch: 'master'
+  buildTool: docker
+  gitSshKeyCredentialsId: jaasSSH
+  pipelineOptimization: true
+
+steps:
+  artifactPrepareVersion:
+    buildTool: custom
+    customVersionSection: xmake
+    customVersioningScheme: maven
+    filePath: cfg/xmake.cfg
+  setupPipelineEnvironment:
+    buildDiscarder:
+      daysToKeep: 10
+      numToKeep: 20
+      artifactDaysToKeep: 5
+      artifactNumToKeep: 10

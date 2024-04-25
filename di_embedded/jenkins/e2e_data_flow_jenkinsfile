@@ -1,0 +1,127 @@
+@Library('cet-shared-library') _
+
+pipeline {
+  agent {
+    kubernetes {
+      yamlFile 'di_embedded/jenkins/yaml/cet_pod.yaml'
+    }
+  }
+  stages {
+
+    stage('Trigger date flow and validate the result') {
+      steps {
+        dir("di_embedded/e2e_scenarios"){
+          container('central-e2e-testing'){ 
+            catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+              script {
+                injectCredentials {
+                  sh "poetry install"
+                  sh "poetry run python3 utils/run_case.py --start-dir data_flow --output testresults --file test_data_flow.py --priority ${priority} --test-info-json utils/test_info.json" 
+                }
+              }
+            }
+            junit "testresults/*.xml"
+          }
+        }
+      }
+    }
+
+    stage('convert result report') {
+      when {
+        expression {params.send2Xray}
+      }
+      steps {
+        dir("di_embedded/e2e_scenarios"){
+          container('central-e2e-testing'){ 
+            sh "poetry run python3 utils/convert_result.py --src testresults/ --target xrayresults/ --jira-json utils/test_info.json"
+          }
+        }
+      }
+    }
+
+    stage('Import results to Xray') {
+      when {
+        allOf {
+          expression {params.send2Xray}
+          expression {fileExists('di_embedded/e2e_scenarios/xrayresults/')}
+        }
+      }
+      steps {
+        step(
+          script {
+              echo params.xrayExecutionKey
+              if (params.xrayExecutionKey!='' && params.xrayExecutionKey!=null) {
+                echo 'use existing test execution ' + params.xrayExecutionKey + ' of test plan ' + params.xrayTestPlanKey
+                [
+                  $class: 'XrayImportBuilder', 
+                  endpointName: '/junit', 
+                  importFilePath: 'di_embedded/e2e_scenarios/xrayresults/*.xml', 
+                  importInParallel: 'false',
+                  importToSameExecution: 'true', 
+                  projectKey: 'DM00', 
+                  serverInstance: '7281f85f-7369-4a95-ba5f-000051c74551', 
+                  testPlanKey: '${xrayTestPlanKey}',
+                  testExecKey: '${xrayExecutionKey}'
+                ]
+              } else {
+                echo 'create a new test execution on test plan ' + params.xrayTestPlanKey
+                [
+                  $class: 'XrayImportBuilder', 
+                  endpointName: '/junit/multipart', 
+                  importFilePath: 'di_embedded/e2e_scenarios/xrayresults/*.xml', 
+                  importInParallel: 'false',
+                  importToSameExecution: 'true', 
+                  projectKey: 'DM00', 
+                  serverInstance: '7281f85f-7369-4a95-ba5f-000051c74551', 
+                  inputInfoSwitcher: 'fileContent',
+                  importInfo: '''{
+                    "fields": {
+                      "project": {
+                        "key": "DM00"
+                      },
+                      "summary": "Test Execution for E2E scenarios",
+                      "issuetype": {
+                        "id": "11904"
+                      },
+                      "components": [
+                        {
+                          "name":"Common Data Services (Cluster)"
+                        }
+                      ],
+                      "customfield_22469": [
+                        "${xrayTestPlanKey}"
+                      ],
+                      "assignee": {
+                        "name": "${assignee}"
+                      }
+                    }
+                  }'''
+                ]
+              }
+          }
+        )
+      }
+    }
+  }
+ 
+  post {
+    always { 
+       sendNotifications(currentBuild.currentResult, "Test result is $currentBuild.currentResult")
+    }
+  }
+
+  parameters {
+    string(name: 'priority', defaultValue: 'P1', description: 'Validation priority strings splited by ";"')
+    string(name: 'cluster', defaultValue: 'CET_DS', description: 'Pre-defined cluster to run data flow scenarios')
+    string(name: 'space', defaultValue: 'DI_CET', description: 'space used')
+    string(name: 'url', defaultValue: 'https://dwc-master-hc-qa-2tenant.master.hanacloudservices.cloud.sap', description: 'URL of Cluster to run CET scenarios')
+    booleanParam(name:'send2Xray', defaultValue:false, description:'Send the test results to Jira Xray.')
+    string(name: 'xrayTestPlanKey', defaultValue: '', description:'Only works when send2Xray is checked.')
+    string(name: 'xrayExecutionKey', defaultValue: '', description: 'Only works when send2Xray is checked. Leave the option empty to create a new test execution for the test plan')
+    string(name: 'assignee', defaultValue: 'I052186', description: 'Test execution task owner')
+    string(name: 'recipients', defaultValue: '', description: 'Contact to receive test results')
+  }
+}
+
+
+

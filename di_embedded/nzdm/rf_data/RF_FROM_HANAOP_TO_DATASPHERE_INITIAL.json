@@ -1,0 +1,21 @@
+{
+    "source": {
+        "name": "IM_HANA_OnPrem",
+        "container": "CET_DWC_TEST",
+        "table": "S_CORP1_INVOICE"
+    }
+    ,
+    "target": {
+        "name": "DUMMY_Datasphere",
+        "container": "CET_DWC_TEST",
+        "table": "NZDM_RF_T_FROM_HANAOP_S_CORP1_INVOICE"
+    },
+    "task": {
+        "name": "RF_FROM_HANAOP_TO_DATASPHERE_INITIAL",
+        "is_active": true,
+        "priority":50,
+        "schedule_type":"IMMEDIATE",
+        "load_type": "INITIAL",
+        "truncate": true
+    }
+}

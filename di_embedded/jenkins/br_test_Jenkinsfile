@@ -1,0 +1,336 @@
+#!groovy
+
+@Library(value = 'haas-protecode-lib', changelog = false)
+@Library(value = 'piper-lib-os', changelog = false)
+@Library(value = 'piper-lib', changelog = false)
+@Library(value = 'csi-di-integration-test-lib', changelog = false)
+@Library(value = 'haas-jenkins-lib', changelog = false) _
+
+String dbaasOrg = 'DI'
+
+
+String dbaasRepo = 'central-e2e-test'
+
+String dbaasService = "$dbaasRepo"
+
+String branch = "rel"
+testResultMetadata = [name: dbaasRepo, project: 'di-ci', stencil: 'di-ci-aws']
+
+// Global variable to save DI version.
+full_version = 'invalid version'
+
+// Global variable to indicate if we should skip the integration test stage.
+shouldSkipIntegrationTests = true
+
+pipeline {
+    agent any
+
+    triggers {
+        cron('TZ=Asia/Shanghai \n0 2 * * 0-4')
+    }
+
+    options {
+        timestamps()
+        
+        copyArtifactPermission('/' + this.env.JOB_NAME)
+
+        // If the job is triggered by PR, then the previous build will be aborted if there are concurrent builds.
+        // If the job is triggered by master branch, then all the builds will be executed in sequence.
+        disableConcurrentBuilds(abortPrevious: isNotMasterBranch())
+
+    }
+
+    stages {    
+
+        stage('Initialization') {
+            steps {
+                sapPiperStageInit script: this
+                deleteDir()
+                checkout scm
+                setupPipelineEnvironment script: this,
+                        appContainer: [
+                                githubOrg : "$dbaasOrg",
+                                githubRepo: "$dbaasRepo"
+                        ]
+            }
+        }
+
+        stage('Create landscape and trigger backup and restore tests') {
+            steps {
+                script {
+                    def base_test_set = readYaml file: 'di_embedded/jenkins/base.yaml'
+
+                    landscapeTestingApi.init_and_run_pipeline_container_v1() {
+                        global_labels = landscapeTestingApi.get_default_global_labels_develop_v1()
+                        base_test_set.global_labels.each { flag, value ->
+                            global_labels[flag] = value
+                        }
+
+                        println("global_labels: ${global_labels}")
+                        landscape_config_list = landscapeTestingApi.get_default_landscape_config_list_develop_v1(global_labels)
+                        
+                        params = [
+                                "global_labels"        : global_labels,
+                                "landscape_config_list": landscape_config_list,
+                                "pre_upgrade_hook": { fixtures, test_results, lsConfig ->
+                                    def platform = ""
+                                    if(lsConfig?.stencil){
+                                        platform = lsConfig.stencil.split("-").last()
+                                        println "current platform is ${platform}"
+                                    }
+
+                                    withEnv(["platform=$platform"]) {
+                                        try{
+                                            baseVersion = sh(
+                                                script: '''
+                                                    python3 -c 'import yaml;import os;platform=os.environ["platform"];yaml_path=f"./stencils/building-blocks/di/cluster-group/di-version/rel-{platform}-settings.yaml";yaml_file=open(yaml_path);yaml_object=yaml.safe_load(yaml_file);print(yaml_object["clusterGroups"]["rel"]["version"])'
+                                                ''',
+                                                returnStdout: true
+                                            )
+                                        }catch(Exception yamlFileException){
+                                            println yamlFileException
+                                            println "Failed to get version for yaml file"
+                                        }
+                                    }
+
+                                    withEnv(["platform=$platform"]) {
+                                        try{
+                                            regConfig = sh(
+                                                script: '''
+                                                    python3 -c 'import yaml;import os;platform=os.environ["platform"];yaml_path=f"./stencils/clusters/gardener/di-ci-{platform}/reg_config.yaml";yaml_file=open(yaml_path);yaml_object=yaml.safe_load(yaml_file);yaml_object["clusterGroups"]["_default"]["backupResources"]["enabled"] = True;yaml.dump(yaml_object, open(yaml_path, "w"));print(yaml_object)'
+                                                ''',
+                                                returnStdout: true
+                                            )
+                                        }catch(Exception yamlFileException){
+                                            println yamlFileException
+                                            println "Update backup resource enable failed"
+                                        }
+                                    }
+                                    update_repo_in_stencil(branch, platform)
+                                    println "Current cluster group version is $baseVersion in stencil $platform"
+                                    println "Show the full reg config $regConfig in stencil $platform"
+                                    lsConfig.currentClusterGroupVersion = baseVersion
+                                    landscapeTestingApi.default_pre_upgrade_steps_v1(fixtures, test_results, lsConfig)
+                                },
+                                "post_upgrade_hook"    : { fixtures, test_results, lsConfig ->
+                                    println "Debug - post_upgrade - run the B&R testing"
+                                    println fixtures
+                                    println test_results
+                                    println lsConfig
+                                    String clusterName = lsConfig.name
+                                    String regionKubePath = "landscape/generated/kubeconfig-${clusterName}-reg.yaml"
+                                    String shootKubePath = ""
+                                    dir(".."){
+                                        stage("Wait until cluster ${clusterName} ready") {
+                                            script {
+                                                try{
+                                                    waitUntilWorkloadClusterReady(regionClusterName:clusterName, kubePath: regionKubePath)
+                                                }catch(Exception ex){
+                                                    println ex
+                                                    error("Workload cluster could not be created successfully within 7200 seconds")
+                                                }finally{
+                                                    shootKubePath = generateShootKubeConfig(script: this, kubePath: regionKubePath, partialName: clusterName, clusterGroupType: branch)
+                                                    sh "mv $shootKubePath ./kubeconfig-${clusterName}.yaml"
+                                                }      
+                                            }
+                                        }
+                                    }
+                                    stage("B&R testing"){
+                                        dir ('..'){
+                                            try {
+                                                //String clusterFullName = getClusterFullName(clusterName)
+                                                
+                                                (clusterFullName, clusterEndpoint, clusterPassword, clusterSystemPassword, outboundIp) = getClusterInformation(kubePath: regionKubePath, partialName: clusterName, clusterGroupType: branch)
+                                                
+                                                println regionKubePath
+                                                sh """
+                                                pwd
+                                                """
+                                                sh """
+                                                ls -lah landscape/generated
+                                                """
+                                                def (DWCTenant1, DWCUser1, DWCPassword1) = createTenant(kubePath: regionKubePath)
+                                                def (DWCTenant2, DWCUser2, DWCPassword2) = createTenant(kubePath: regionKubePath)
+                                                withEnv([
+                                                        "tenantName0=$DWCTenant1",
+                                                        "username=$DWCUser1",
+                                                        "password=$DWCPassword1",
+                                                        "tenantName1=$DWCTenant2",
+                                                        "username1=$DWCUser2",
+                                                        "password1=$DWCPassword2",
+                                                    ]){
+                                                        sh """
+                                                        chmod +x $WORKSPACE/di_embedded/br_scenarios/startBRTesting.sh && $WORKSPACE/di_embedded/br_scenarios/startBRTesting.sh ${clusterFullName} ${clusterName}
+                                                        """
+                                                    }
+                                                println "start export unittest result."
+                                                sh """
+                                                pwd
+                                                """
+
+                                                sh """
+                                                ls -lah di_embedded/br_scenarios/test-reports
+                                                """
+                                                println "$WORKSPACE"
+                                                junit testResults: '**/test-reports/*.xml', allowEmptyResults: false
+                                                println "unittest result generated."
+                                            }catch (Exception ex) {
+                                                error("Run backup and restore failed with exception: \n" + ex.toString())
+                                            }//finally{
+                                             //   deleteRestoredCluster(clusterFullName, clusterName)
+                                            //}
+
+                                        }  
+                                    }
+
+                                    stage("Notification"){
+                                        println "$WORKSPACE"
+                                        def testResult = readFile "$WORKSPACE/di_embedded/br_scenarios/tests/result/resultForEmail.txt"
+                                        emailext (
+                                            to: "squall.han@sap.com",
+                                            subject: "Automation result for CSI B&R testing",
+                                            body: "DI version is: ${lsConfig.currentClusterGroupVersion}<br>\r\n\
+                                            Platform is ${lsConfig.stencil.split("-").last()}<br>\r\n\
+                                            Build URL is https://csidie2etest.jaas-gcp.cloud.sap.corp/blue/organizations/jenkins/csi-cet-e2e-backup-restore/detail/main/${BUILD_NUMBER}/pipeline <br>\r\n\
+                                            Details test result is: ${testResult}<br>",
+                                            mimeType: "text/html"
+                                        )
+                                    }
+                                }
+                        ]
+
+                       landscapeTestingApi.landscape_integration_tests_v1(params)
+                    }
+                }
+            }
+        }
+    } 
+
+    post {
+        // Clean after build
+        always {
+            cleanWs()
+        }
+    }
+}
+
+
+def getIntegrationTestsRunner() {
+    sh """
+    echo "Debugging for current path"
+    echo "Get current path"
+    echo `pwd`
+    echo "Get all files for current path"
+    echo `ls -ah`
+    """
+    def integration_tests = load "$WORKSPACE/di_embedded/scripts/integration-tests/execute_integration_tests.groovy"
+    println "integration_tests is ${integration_tests}"
+    return integration_tests
+}
+
+void dumpPodsLog(String workloadKubeconfig, String stag) {
+
+    sh """
+        export PIP_CONFIG_FILE=$WORKSPACE/di_embedded/scripts/pip-trust.conf
+        pip3 install -r $WORKSPACE/di_embedded/scripts/python-test-requirements.txt
+        export PYTHONPATH="$WORKSPACE/"
+        python3 $WORKSPACE/di_embedded/scripts/dump-pods-log/dump_pods_log.py --kubeconfig ${workloadKubeconfig}  --namespaces 'datahub' 'datahub-system'  --stage ${stag}         
+    """
+    archiveArtifacts artifacts: '*.zip,**/*.zip'
+}
+
+
+def checkChangedFiles(changeLogSets, committedFiles){
+    if(changeLogSets){
+        outerloop:
+        for (int i = 0; i < changeLogSets.size(); i++) {
+            def entries = changeLogSets[i].items
+            for (int j = 0; j < entries.length; j++) {
+                def entry = entries[j]
+                def files = new ArrayList(entry.affectedFiles)
+                for (int k = 0; k < files.size(); k++) {
+                    def file = files[k]
+                    println "file path is"
+                    println file.path
+                    if(!file.path.endsWith(".md")){
+                        shouldSkipIntegrationTests = false
+                        break outerloop
+                    }
+                }
+            }
+        }
+    }else if(committedFiles){
+        for(int l = 0; l < committedFiles.size();l++){
+            println "Commited file is"
+            println committedFiles[l]
+            if(!committedFiles[l].endsWith(".md")){
+                shouldSkipIntegrationTests = false
+                break
+            }
+        }
+    }else{
+        // Currently it seems that merging master code into PR will not contain any committed files and changeLogsets.
+        // So force to execute other stages if this condition happens.
+        shouldSkipIntegrationTests = false
+    }
+}
+
+def isNotMasterBranch() {
+    return (env.BRANCH_NAME != 'master')
+}
+
+def rotateVaultSecrets(){
+
+    def config
+    def path = "./di_embedded/scripts/integration-tests"
+    def vaultUtils = load "${path}/utils/vault_utils.groovy"
+    try{
+        config = readJSON file: "${path}/configuration/config.json"
+    }catch(e){
+        throw new Exception("rotateVaultSecrets - Error occurs when reading the config.json file or the config.json file is changed.")
+    }
+    def vaultMap = config["vault"]
+    def services = vaultMap.keySet()
+    for (int i = 0; i < services.size(); i++){
+        def serviceName = services[i]
+        def appRole = vaultMap[serviceName]?.appRole
+        def appRoleSecret = vaultMap[serviceName]?.appRoleSecret        
+        vaultUtils.rotateSecret(vaultAppRoleId:appRole, vaultAppRoleSecretId:appRoleSecret)
+    }
+    
+}
+
+def deleteRestoredCluster(String clusterFullName, String clusterName){
+    clusterFullName = "res-" + clusterFullName
+    sh(
+        script:"""
+            export KUBECONFIG=\$(pwd)/landscape/generated/kubeconfig-${clusterName}-reg.yaml
+            kubectl annotate cluster ${clusterFullName} dis.datahub.sap.com/confirm-deletion=${clusterFullName}
+            kubectl delete cluster ${clusterFullName}
+        """
+    )
+}
+
+void update_repo_in_stencil(String repo_name, String platform) {
+    stage("Update Repo Info In Stencil") {
+        
+        echo "Updating stencil for ${repo_name}"
+        if (repo_name == 'rel') {
+        def regFilePath = "./stencils/clusters/gardener/di-ci-${platform}/reg_config.yaml"
+        def regData = readYaml file: regFilePath
+        
+            // By default the replicas for master cluster group will be 1, so set 0 here.
+            regData.clusterGroups.master.replicas=['min':0, 'max':0]
+            regData.clusterGroups.hotfix.replicas=['min':0, 'max':0]
+            regData.clusterGroups.rel.replicas=['min':1, 'max':1]
+            try {
+                sh "rm $regFilePath"
+                writeYaml file: regFilePath, data: regData
+                sh "cat ${regFilePath}"
+            } 
+            catch (Exception error) {
+                throw new Exception ("Failed when trying to write changed data back to reg_config.yaml")
+            }
+        }
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "source": {
+        "name": "CIT_DMIS_2018_ODP",
+        "container": "ODP_SAPI",
+        "table": "LTE2E_WS_LS"
+    }
+    ,
+    "target": {
+        "name": "HDL_FILES",
+        "container": "CET_DWC_TEST",
+        "table": "NZDM_LTE2E_WS_LS"
+    },
+    "task": {
+        "name": "RF_FROM_DMIS_ODP_TO_HDL_INITIAL",
+        "is_active": true,
+        "priority":50,
+        "schedule_type":"IMMEDIATE",
+        "load_type": "INITIAL",
+        "truncate": true
+    }
+}

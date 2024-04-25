@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    project: central-e2e-testing
+spec:
+  containers:
+    - name: jnlp
+      image: eu.gcr.io/sap-scp-jaas-prod/jnlp:4.13-1-sap-01
+    - name: central-e2e-testing
+      image: di-qa-docker-public.int.repositories.cloud.sap/di-qa-python
+      stdin: true
+      tty: true

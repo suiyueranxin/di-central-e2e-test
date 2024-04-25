@@ -1,0 +1,75 @@
+{
+    "inlineGraph": {
+        "properties": {},
+        "metadata": {
+            "dwc-restartOnFail": false
+        },
+        "description": "",
+        "processes": {
+            "javascriptv2operator1": {
+                "component": "com.sap.system.jsengine.v2",
+                "metadata": {
+                    "label": "Javascript(v2) Operator",
+                    "x": 113,
+                    "y": 159,
+                    "height": 80,
+                    "width": 120,
+                    "extensible": true,
+                    "generation": 1,
+                    "config": {
+                        "script": "var counter = 0\n\n$.addGenerator(gen)\n\nfunction gen(ctx) {\n    for (var i = 0; i < 3; i++ ) {\n      $.output1(counter)\n      counter++\n    }\n}// your script goes in here\n\n"
+                    },
+                    "additionaloutports": [
+                        {
+                            "name": "output1",
+                            "type": "scalar",
+                            "vtype-ID": "com.sap.core.int32"
+                        }
+                    ]
+                }
+            },
+            "graphterminator1": {
+                "component": "com.sap.util.graphTerminator",
+                "metadata": {
+                    "label": "Graph Terminator",
+                    "x": 372,
+                    "y": 159,
+                    "height": 80,
+                    "width": 120,
+                    "generation": 1,
+                    "config": {},
+                    "additionalinports": [
+                        {
+                            "name": "input1",
+                            "type": "scalar",
+                            "isPropagated": true,
+                            "vtype-ID": "com.sap.core.int32"
+                        }
+                    ]
+                }
+            }
+        },
+        "groups": [],
+        "connections": [
+            {
+                "metadata": {
+                    "points": "218,199 302,199 302,208 386,208"
+                },
+                "src": {
+                    "port": "output1",
+                    "process": "javascriptv2operator1"
+                },
+                "tgt": {
+                    "port": "input1",
+                    "process": "graphterminator1"
+                }
+            }
+        ],
+        "inports": {},
+        "outports": {},
+        "properties": {},
+        "metadata": {
+            "generation": 1
+        }
+    }
+}

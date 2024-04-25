@@ -1,0 +1,21 @@
+{
+    "source": {
+        "name": "CIT_HANA_Cloud",
+        "container": "CET_DWC_TEST",
+        "table": "S_CORP1_CUSTOMER"
+    }
+    ,
+    "target": {
+        "name": "IM_S3",
+        "container": "CET_DWC_TEST",
+        "table": "NZDM_RF_T_FROM_HANAOC_S_CORP1_CUSTOMER"
+    },
+    "task": {
+        "name": "RF_FROM_HANAOC_TO_S3_INITIAL",
+        "is_active": true,
+        "priority":50,
+        "schedule_type":"IMMEDIATE",
+        "load_type": "INITIAL",
+        "truncate": true
+    }
+}

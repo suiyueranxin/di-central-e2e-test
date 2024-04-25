@@ -1,0 +1,37 @@
+{
+  "test_data_flow": {
+    "test_df_from_hana_on_prem_to_datasphere": {
+      "stage": "all",
+      "xray_link": "DM00-XXXX"
+    },
+    "test_df_from_s4h_cds_to_hana_cloud": {
+      "stage": "all"
+    },
+    "test_df_from_abap_slt_to_datasphere": {
+      "stage": "post-upgrade"
+    }
+  },
+  "test_replication_flow": {
+    "test_rf_from_hana_on_prem_to_datasphere_initial": {
+      "stage": "all"
+    },
+    "test_rf_from_abap_cds_to_hana_cloud_delta": {
+      "stage": "all"
+    },
+    "test_rf_from_dmis_slt_to_gbq_initial": {
+      "stage": "upgrade, post-upgrade"
+    },
+    "test_rf_from_abap_cds_to_adlv2_delta": {
+      "stage": "upgrade, post-upgrade"
+    },
+    "test_rf_from_dmis_odp_to_hdl_initial": {
+      "stage": "upgrade, post-upgrade"
+    },
+    "test_rf_from_hana_on_cloud_to_s3_initial": {
+      "stage": "upgrade, post-upgrade"
+    },
+    "test_rf_from_abap_cds_to_gcs_initial": {
+      "stage": "upgrade, post-upgrade"
+    }
+  }
+}
